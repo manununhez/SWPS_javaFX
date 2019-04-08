@@ -142,14 +142,14 @@ public class MainApp extends Application {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(VIEW_START_EXPERIMENT_FXML));
-            AnchorPane page = loader.load();
+            BorderPane page = loader.load();
 
             // Create the dialog Stage.
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
             secondaryStage.initOwner(primaryStage);
-            secondaryStage.setMaximized(true);
+//            secondaryStage.setMaximized(true);
 
             //new scene
             Scene scene = new Scene(page);
@@ -157,7 +157,7 @@ public class MainApp extends Application {
 
             // Set the person into the controller.
             StartExperiment controller = loader.getController();
-            controller.setStage(secondaryStage);
+            controller.initRootLayout(secondaryStage, page);
 
             // Show the dialog and wait until the user closes it
             secondaryStage.showAndWait();

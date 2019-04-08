@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="400.0" prefWidth="600.0"
+          style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.172-ea"
+          fx:controller="pl.swps.controller.Experiment">
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+    <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" text="Labeltesdfdsf" textAlignment="CENTER"
+           wrapText="true">
+        <font>
+            <Font size="27.0"/>
+        </font>
+    </Label>
+</GridPane>

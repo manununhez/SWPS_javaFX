@@ -22,6 +22,15 @@ public class ScreenController {
     }
 
     public void activate() {
-        main.setCenter(screenMap.peek());
+        if (!screenMap.isEmpty())
+            main.setCenter(screenMap.peek());
+    }
+
+    public Pane getPane() {
+        return screenMap.peek();
+    }
+
+    public boolean isEmpty() {
+        return screenMap.isEmpty();
     }
 }
