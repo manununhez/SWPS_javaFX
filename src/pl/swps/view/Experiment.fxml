@@ -14,7 +14,7 @@
     <rowConstraints>
         <RowConstraints/>
     </rowConstraints>
-    <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" text="Labeltesdfdsf" textAlignment="CENTER"
+    <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
            wrapText="true">
         <font>
             <Font size="27.0"/>

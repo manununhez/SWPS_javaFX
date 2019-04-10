@@ -1,56 +1,48 @@
 package pl.swps.controller;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+import pl.swps.model.WordList;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+
 
 public class Experiment {
     public Label labelTest;
-    public List<String> list = null;
+    private WordList wordList;
+    private int SETTINGS_EXPOSITION_TIME = 2; //seconds
+    private Timeline clock;
 
+    void setValues(WordList wordList) {
+        this.wordList = new WordList(wordList.category, wordList.key, wordList.values);
+//        System.out.println("SetValue()=>"+wordList.toString());
+    }
 
-    public void setValues(String s) {
-        labelTest.setText(s);
+    void startLoop() {
+        Iterator<String> it = wordList.values.iterator();
 
-        list = new ArrayList<>();
-        list.add("uno");
-        list.add("dos");
-        list.add("tres");
-        list.add("cuatro");
-        list.add("cinco");
-        list.add("seis");
-        list.add("siete");
-        list.add("ocho");
-        list.add("nueve");
-        list.add("diez");
-        list.add("diez");
-        list.add("once");
-        list.add("doce");
-        list.add("trece");
-        list.add("catorce");
-        list.add("quince");
-//        new String[]{"uno", "dos", "tres", "cuatro", "cinco", "seis",
-//                "siete", "ocho", "nueve", "diez", "once", "doce", "trece", "catorce", "quince"};
+        int duration = SETTINGS_EXPOSITION_TIME;
+        int cycleCount = wordList.values.size();
 
+        //We start a timer, goes from zero to cycleCount.
+        //We iterate over wordList.values, without modifying its values.
+        //The speed or duration of the iteration is duration.
+        clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            if (it.hasNext()) {
+                labelTest.setText(it.next());
+            }
+        }),
+                new KeyFrame(Duration.seconds(duration))
+        );
+        clock.setCycleCount(cycleCount);
+        clock.play();
     }
 
 
-    public void startLoop() {
-        //2segs in ms
-        int SETTINGS_EXPOSITION_TIME = 2;
-
-
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            labelTest.setText(list.get(0));
-            list.remove(0);
-        }),
-                new KeyFrame(Duration.seconds(SETTINGS_EXPOSITION_TIME))
-        );
-        clock.setCycleCount(list.size());
-        clock.play();
+    boolean isTimeLineIsOver() {
+        return clock.getStatus().equals(Animation.Status.STOPPED);
     }
 }
