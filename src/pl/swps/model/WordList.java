@@ -1,11 +1,12 @@
 package pl.swps.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordList {
-    public static final String CATEGORY_POSITIVE = "positive";
-    public static final String CATEGORY_NEGATIVE = "negative";
+public class WordList implements Serializable {
+    public static final String CATEGORY_POSITIVE = "Positive";
+    public static final String CATEGORY_NEGATIVE = "Negative";
 
     public String category;
     public String key;

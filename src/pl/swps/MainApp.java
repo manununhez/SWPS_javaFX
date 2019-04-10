@@ -170,6 +170,7 @@ public class MainApp extends Application {
 
             //Give the controller access to the main app.
             AddNewParticipant controller = loader.getController();
+            controller.setScene(primaryStage.getScene());
             controller.setMainApp(this);
             controller.setWordList(wordLists);
         } catch (IOException e) {
@@ -219,7 +220,7 @@ public class MainApp extends Application {
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
-            secondaryStage.initOwner(primaryStage);
+//            secondaryStage.initOwner(primaryStage);
             secondaryStage.setMaximized(true);
 
             //new scene

@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="400.0" prefWidth="600.0"
-          style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.172-ea"
-          fx:controller="pl.swps.controller.Experiment">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: lightslategrey"
+          xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.Experiment">
     <columnConstraints>
         <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
+        <RowConstraints minHeight="-Infinity"/>
     </rowConstraints>
-    <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
-           wrapText="true">
-        <font>
-            <Font size="27.0"/>
-        </font>
-    </Label>
+    <VBox fillWidth="false">
+        <Separator/>
+        <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" prefWidth="600.0" textAlignment="CENTER"
+               wrapText="true">
+            <font>
+                <Font size="35.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="40.0" top="40.0"/>
+            </VBox.margin>
+        </Label>
+        <Separator prefWidth="200.0"/>
+    </VBox>
 </GridPane>

@@ -103,7 +103,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         GridPane grid = new GridPane();
         grid.setId("wizard_1");
         grid.setAlignment(Pos.CENTER);
-        grid.setStyle("-fx-background-color:lightblue;");
+        grid.setStyle("-fx-background-color:lightslategrey;");
 
         Label label = new Label("Za chwilę rozpocznie się zadanie komputerowe. " +
                 "Na ekranie będą wyświetlane po kolei słowa. Twoim zadaniem będzie zapamiętanie jak największej ich liczby. " +
@@ -123,7 +123,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         GridPane grid = new GridPane();
         grid.setId("wizard_2_first_space_bar");
         grid.setAlignment(Pos.CENTER);
-        grid.setStyle("-fx-background-color:lightblue;");
+        grid.setStyle("-fx-background-color:lightslategrey;");
 
         Label label = new Label("Naciśnij spację, aby rozpocząć zadanie.");
         label.setAlignment(Pos.CENTER);
@@ -139,7 +139,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         GridPane grid = new GridPane();
         grid.setId("wizard_3_after_list");
         grid.setAlignment(Pos.CENTER);
-        grid.setStyle("-fx-background-color:lightblue;");
+        grid.setStyle("-fx-background-color:lightslategrey;");
 
 
         Label label = new Label("Proszę teraz wypisać na kartce wszystkie zapamiętane słowa.\n" +
@@ -161,7 +161,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         GridPane grid = new GridPane();
         grid.setId("wizard_4_next_space_bar");
         grid.setAlignment(Pos.CENTER);
-        grid.setStyle("-fx-background-color:lightblue;");
+        grid.setStyle("-fx-background-color:lightslategrey;");
 
         Label label = new Label("Naciśnij spację, aby rozpocząć kolejne zadanie.");
         label.setAlignment(Pos.CENTER);
@@ -178,7 +178,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         GridPane grid = new GridPane();
         grid.setId("wizard_5_final");
         grid.setAlignment(Pos.CENTER);
-        grid.setStyle("-fx-background-color:lightblue;");
+        grid.setStyle("-fx-background-color:lightslategrey;");
 
         Label label = new Label(" Dziękujemy, to już koniec zadania komputerowego.");
         label.setPadding(new Insets(50, 100, 50, 100));
