@@ -4,26 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: lightslategrey"
-          xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.Experiment">
-    <columnConstraints>
-        <ColumnConstraints/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints minHeight="-Infinity"/>
-    </rowConstraints>
-    <VBox fillWidth="false">
-        <Separator/>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneTest" prefHeight="800.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.Experiment">
+    <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <Separator VBox.vgrow="NEVER"/>
         <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" prefWidth="600.0" textAlignment="CENTER"
                wrapText="true">
-            <font>
-                <Font size="35.0"/>
-            </font>
             <VBox.margin>
                 <Insets bottom="40.0" top="40.0"/>
             </VBox.margin>
         </Label>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" VBox.vgrow="NEVER"/>
     </VBox>
-</GridPane>
+</AnchorPane>

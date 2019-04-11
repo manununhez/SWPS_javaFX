@@ -12,6 +12,7 @@ import pl.swps.controller.ExperimentOverview;
 import pl.swps.controller.ScreenController;
 import pl.swps.controller.StartExperiment;
 import pl.swps.model.Participant;
+import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
 
 import java.io.IOException;
@@ -208,8 +209,9 @@ public class MainApp extends Application {
      * Opens a dialog to edit details for the specified participant. If the user
      * clicks OK, the changes are saved into the provided participant object and true
      * is returned.
+     * @param style Experiment screen design
      */
-    public void showStartExperiment() {
+    public void showStartExperiment(StyleDesign style) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -233,6 +235,7 @@ public class MainApp extends Application {
             controller.setScene(scene);
             controller.setPane(page);
             controller.setParticipant(participant);
+            controller.setStyle(style);
             controller.initScreenFlow();
 
             // Show the dialog and wait until the user closes it

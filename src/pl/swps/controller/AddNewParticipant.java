@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,13 +13,20 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Paint;
+import javafx.util.Callback;
 import pl.swps.MainApp;
 import pl.swps.model.Participant;
+import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class AddNewParticipant {
     private static final ObservableList<String> birds = FXCollections.observableArrayList();
@@ -41,6 +49,8 @@ public class AddNewParticipant {
     public ToggleGroup toggleGroupSex;
     @FXML
     public ListView listView;
+    @FXML
+    public ComboBox comboBoxStyle;
     private HashMap<String, WordList> hashMap = new HashMap<>();
 
 
@@ -79,6 +89,55 @@ public class AddNewParticipant {
                 etYearsEduc.setText(oldValue);
             } else {
                 etYearsEduc.setText(newValue);
+            }
+        });
+
+        comboBoxStyle.getItems().addAll(StyleDesign.StyleType.GREEN.toString(),
+                StyleDesign.StyleType.SEPIA.toString(),
+                StyleDesign.StyleType.BLACK.toString(),
+                StyleDesign.StyleType.WHITE.toString());
+
+
+        comboBoxStyle.setValue(StyleDesign.StyleType.SEPIA.toString());
+
+        comboBoxStyle.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                return new ListCell<String>() {
+
+                    @Override
+                    public void updateItem(String item,
+                                           boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item);
+                            String selectedColor;
+                            String selectedFontColor;
+                            if (item.contains(StyleDesign.StyleType.GREEN.toString())) {
+                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.GREEN);
+                                selectedColor = styleDesign.backgroundColor;
+                                selectedFontColor = styleDesign.fontColor;
+                            } else if (item.contains(StyleDesign.StyleType.SEPIA.toString())) {
+                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
+                                selectedColor = styleDesign.backgroundColor;
+                                selectedFontColor = styleDesign.fontColor;
+                            } else if (item.contains(StyleDesign.StyleType.BLACK.toString())) {
+                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.BLACK);
+                                selectedColor = styleDesign.backgroundColor;
+                                selectedFontColor = styleDesign.fontColor;
+                            } else {
+                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.WHITE);
+                                selectedColor = styleDesign.backgroundColor;
+                                selectedFontColor = styleDesign.fontColor;
+                            }
+
+                            setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
+                            setTextFill(Paint.valueOf(selectedFontColor));
+                        } else {
+                            setText(null);
+                        }
+                    }
+                };
             }
         });
 
@@ -130,8 +189,24 @@ public class AddNewParticipant {
 
             mainApp.setParticipant(participant);
             //go to test
-            mainApp.showStartExperiment();
+            mainApp.showStartExperiment(getStyle((String) comboBoxStyle.getValue()));
         }
+    }
+
+    private StyleDesign getStyle(String value) {
+        if (value.contains(StyleDesign.StyleType.GREEN.toString())) {
+            return StyleDesign.newInstance(StyleDesign.StyleType.GREEN);
+        } else if (value.contains(StyleDesign.StyleType.SEPIA.toString())) {
+            return StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
+
+        } else if (value.contains(StyleDesign.StyleType.BLACK.toString())) {
+            return StyleDesign.newInstance(StyleDesign.StyleType.BLACK);
+
+        } else {
+            return StyleDesign.newInstance(StyleDesign.StyleType.WHITE);
+
+        }
+
     }
 
     public void setWordList(List<WordList> originalWordLists) {
