@@ -7,7 +7,7 @@ public class ExperimentOverview {
     private MainApp mainApp;
 
     public void handleNewExperiment(ActionEvent actionEvent) {
-        mainApp.showAddNewParticipant();
+//        mainApp.showAddNewParticipant();
     }
 
     public void handleSeePreviousExperiment(ActionEvent actionEvent) {

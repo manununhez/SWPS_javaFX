@@ -7,10 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pl.swps.controller.AddNewParticipant;
-import pl.swps.controller.ExperimentOverview;
-import pl.swps.controller.ScreenController;
-import pl.swps.controller.StartExperiment;
+import pl.swps.controller.*;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
@@ -24,9 +21,10 @@ import java.util.Random;
 public class MainApp extends Application {
     private static final String VIEW_ROOT_LAYOUT_FXML = "view/RootLayout.fxml";
     private static final String VIEW_EXPERIMENT_OVERVIEW_FXML = "view/ExperimentOverview.fxml";
-    private static final String VIEW_ADD_NEW_PARTICIPANT_FXML = "view/AddNewParticipant.fxml";
     private static final String VIEW_START_EXPERIMENT_FXML = "view/StartExperiment.fxml";
-    private static final String PRIMARY_STAGE_TITLE = "SWSPApp";
+    private static final String VIEW_ADD_NEW_PARTICIPANT_FXML = "view/AddNewParticipant.fxml";
+
+    private static final String PRIMARY_STAGE_TITLE = "SWSP University";
     private static final String SECONDARY_STAGE_TITLE = "Starting Experiment";
 
     private Stage primaryStage;
@@ -120,6 +118,10 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            //Give the controller access to the main app.
+            RootLayout controller = loader.getController();
+            controller.setMainApp(this);
+
             //We add the main scene to the stack
             screenController = new ScreenController(rootLayout);
 
@@ -131,7 +133,7 @@ public class MainApp extends Application {
     /**
      * Shows the experiment overview inside the root layout.
      */
-    private void showExperimentOverview() {
+    public void showExperimentOverview() {
         try {
             // Load participant overview.
             FXMLLoader loader = new FXMLLoader();
@@ -156,7 +158,7 @@ public class MainApp extends Application {
     /**
      * Shows the experiment overview inside the root layout.
      */
-    public void showAddNewParticipant() {
+    public void showNewExperiment() {
         try {
             // Load participant overview.
             FXMLLoader loader = new FXMLLoader();
@@ -171,12 +173,16 @@ public class MainApp extends Application {
 
             //Give the controller access to the main app.
             AddNewParticipant controller = loader.getController();
-            controller.setScene(primaryStage.getScene());
+//            controller.setScene(primaryStage.getScene());
             controller.setMainApp(this);
-            controller.setWordList(wordLists);
+//            controller.setWordList(wordLists);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<WordList> getWordLists() {
+        return wordLists;
     }
 
 
@@ -209,6 +215,7 @@ public class MainApp extends Application {
      * Opens a dialog to edit details for the specified participant. If the user
      * clicks OK, the changes are saved into the provided participant object and true
      * is returned.
+     *
      * @param style Experiment screen design
      */
     public void showStartExperiment(StyleDesign style) {

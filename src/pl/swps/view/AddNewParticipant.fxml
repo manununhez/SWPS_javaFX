@@ -2,172 +2,202 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.AddNewParticipant">
-    <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <GridPane alignment="TOP_CENTER" prefHeight="350.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="172.0"/>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0"
-                                   prefWidth="408.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="32.0" minHeight="31.0" prefHeight="32.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="59.0" minHeight="31.0" prefHeight="31.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="55.0" minHeight="28.0" prefHeight="55.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="53.0" minHeight="34.0" prefHeight="40.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="139.0" minHeight="114.0" prefHeight="139.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <ListView fx:id="listView" prefHeight="300.0" style="-fx-background-color: #c7c6ff;"
-                      GridPane.columnIndex="1" GridPane.rowIndex="4">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-                <cursor>
-                    <Cursor fx:constant="DEFAULT"/>
-                </cursor>
-            </ListView>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Sex:" GridPane.halignment="RIGHT"
-                   GridPane.rowIndex="1">
-                <font>
-                    <Font name="Avenir Book Oblique" size="15.0"/>
-                </font>
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-            <Label text="Years of education:" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                <font>
-                    <Font name="Avenir Book Oblique" size="15.0"/>
-                </font>
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-            <Label text="Group number:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-                <font>
-                    <Font name="Avenir Book Oblique" size="15.0"/>
-                </font>
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Participant number#:"
-                   GridPane.halignment="RIGHT">
-                <font>
-                    <Font name="Avenir Book Oblique" size="15.0"/>
-                </font>
-                <cursor>
-                    <Cursor fx:constant="CLOSED_HAND"/>
-                </cursor>
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-            <TextField fx:id="etParticipantNumber" promptText="participant number #" GridPane.columnIndex="1">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-                <cursor>
-                    <Cursor fx:constant="TEXT"/>
-                </cursor>
-            </TextField>
-            <TextField fx:id="etYearsEduc" layoutX="10.0" layoutY="21.0" promptText="years #" GridPane.columnIndex="1"
-                       GridPane.rowIndex="2">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-                <cursor>
-                    <Cursor fx:constant="TEXT"/>
-                </cursor>
-            </TextField>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
-                  GridPane.rowIndex="1">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-                <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="Male">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroupSex"/>
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="Female" toggleGroup="$toggleGroupSex">
-                    <HBox.margin>
-                        <Insets left="20.0"/>
-                    </HBox.margin>
-                </RadioButton>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="152.0" layoutY="59.0" prefHeight="100.0" prefWidth="200.0"
-                  GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-                <RadioButton fx:id="rbPositive" mnemonicParsing="false" selected="true" text="Positive">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroupNumber"/>
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="rbNegative" mnemonicParsing="false" text="Negative"
-                             toggleGroup="$toggleGroupNumber">
-                    <HBox.margin>
-                        <Insets left="20.0"/>
-                    </HBox.margin>
-                </RadioButton>
-            </HBox>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="47.0" prefWidth="162.0"
-                   text="(drag and drop to order the list)" textAlignment="CENTER" wrapText="true"
-                   GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-            <ComboBox fx:id="comboBoxStyle" prefWidth="150.0" promptText="Style design" GridPane.columnIndex="1"
-                      GridPane.rowIndex="5">
-                <GridPane.margin>
-                    <Insets left="10.0"/>
-                </GridPane.margin>
-            </ComboBox>
-            <Label layoutX="68.0" layoutY="87.0" text="Style:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-                <font>
-                    <Font name="Avenir Book Oblique" size="15.0"/>
-                </font>
-                <GridPane.margin>
-                    <Insets right="10.0"/>
-                </GridPane.margin>
-            </Label>
-        </GridPane>
-        <Separator prefWidth="200.0">
+    <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: #5c6bc0;">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="600.0"
+                   styleClass="label-title" text="Add new participant" textAlignment="CENTER" textFill="WHITE"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
             <VBox.margin>
-                <Insets bottom="10.0" top="10.0"/>
+                <Insets/>
             </VBox.margin>
-        </Separator>
-        <HBox alignment="BOTTOM_CENTER">
-            <VBox.margin>
-                <Insets bottom="20.0"/>
-            </VBox.margin>
-            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false"
-                    onAction="#handleSaveAndStart" text="Save and Start">
-                <cursor>
-                    <Cursor fx:constant="DEFAULT"/>
-                </cursor>
-                <HBox.margin>
-                    <Insets right="5.0"/>
-                </HBox.margin>
-            </Button>
-            <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false"
-                    onAction="#handleCancel" text="Cancel">
-                <HBox.margin>
-                    <Insets left="5.0"/>
-                </HBox.margin>
-            </Button>
-        </HBox>
-        <padding>
-            <Insets left="10.0" right="10.0" top="10.0"/>
-        </padding>
+        </AnchorPane>
+        <VBox alignment="TOP_CENTER">
+            <GridPane alignment="TOP_CENTER" prefHeight="350.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="172.0"/>
+                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0"
+                                       prefWidth="408.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="32.0" minHeight="31.0" prefHeight="32.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="59.0" minHeight="31.0" prefHeight="31.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="55.0" minHeight="28.0" prefHeight="55.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="53.0" minHeight="29.0" prefHeight="42.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="139.0" minHeight="7.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="195.0" minHeight="104.0" prefHeight="104.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <ListView fx:id="listView" prefHeight="300.0" style="-fx-background-color: #c7c6ff;"
+                          GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </ListView>
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Sex:" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="1">
+                    <font>
+                        <Font name="Avenir Book Oblique" size="15.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="10.0"/>
+                    </GridPane.margin>
+                </Label>
+                <Label text="Years of education:" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="Avenir Book Oblique" size="15.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="10.0"/>
+                    </GridPane.margin>
+                </Label>
+                <Label text="Group number:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="Avenir Book Oblique" size="15.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="10.0"/>
+                    </GridPane.margin>
+                </Label>
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Participant number#:"
+                       GridPane.halignment="RIGHT">
+                    <font>
+                        <Font name="Avenir Book Oblique" size="15.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="CLOSED_HAND"/>
+                    </cursor>
+                    <GridPane.margin>
+                        <Insets right="10.0"/>
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="etParticipantNumber" promptText="Enter participant number (up to 999)"
+                           GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <cursor>
+                        <Cursor fx:constant="TEXT"/>
+                    </cursor>
+                </TextField>
+                <TextField fx:id="etYearsEduc" layoutX="10.0" layoutY="21.0"
+                           promptText="Enter years the years of education (up to 99)" GridPane.columnIndex="1"
+                           GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <cursor>
+                        <Cursor fx:constant="TEXT"/>
+                    </cursor>
+                </TextField>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                      GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="Male">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="toggleGroupSex"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="Female"
+                                 toggleGroup="$toggleGroupSex">
+                        <HBox.margin>
+                            <Insets left="20.0"/>
+                        </HBox.margin>
+                    </RadioButton>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="152.0" layoutY="59.0" prefHeight="100.0" prefWidth="200.0"
+                      GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <RadioButton fx:id="rbPositive" mnemonicParsing="false" selected="true" text="Positive">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="toggleGroupNumber"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="rbNegative" mnemonicParsing="false" text="Negative"
+                                 toggleGroup="$toggleGroupNumber">
+                        <HBox.margin>
+                            <Insets left="20.0"/>
+                        </HBox.margin>
+                    </RadioButton>
+                </HBox>
+                <Label alignment="BOTTOM_CENTER" contentDisplay="RIGHT"
+                       text="To order the list, drag and drop the list items." textAlignment="CENTER"
+                       wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4"
+                       GridPane.valignment="BOTTOM">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="68.0" layoutY="87.0" text="Style:" GridPane.halignment="RIGHT"
+                       GridPane.rowIndex="6">
+                    <font>
+                        <Font name="Avenir Book Oblique" size="15.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="10.0"/>
+                    </GridPane.margin>
+                </Label>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                      GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets left="10.0"/>
+                    </GridPane.margin>
+                    <ComboBox fx:id="comboBoxStyle" prefHeight="30.0" promptText="Style design"/>
+                    <AnchorPane prefWidth="150.0" fx:id="anchorPaneExample" style="-fx-border-color: gray;">
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="30.0" top="5.0"/>
+                        </HBox.margin>
+                        <Label alignment="CENTER" fx:id="labelExample" contentDisplay="CENTER"
+                               text="Example" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font name="System Bold Italic" size="16.0"/>
+                            </font>
+                        </Label>
+                    </AnchorPane>
+                </HBox>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </GridPane>
+            <Separator valignment="BASELINE">
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </Separator>
+            <HBox alignment="BOTTOM_CENTER" prefWidth="570.0">
+                <VBox.margin>
+                    <Insets bottom="20.0"/>
+                </VBox.margin>
+                <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                        onAction="#handleSaveAndStart" text="Save and Start">
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                </Button>
+            </HBox>
+            <padding>
+                <Insets left="20.0" right="10.0" top="10.0"/>
+            </padding>
+        </VBox>
     </VBox>
 </AnchorPane>
