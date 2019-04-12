@@ -32,8 +32,7 @@ import java.util.List;
 
 
 public class AddNewParticipant {
-    private static final ObservableList<String> birds = FXCollections.observableArrayList();
-    private static ObservableList<String> birdImages = FXCollections.observableArrayList();
+    private static ObservableList<String> wordListTmp = FXCollections.observableArrayList();
     @FXML
     public TextField etParticipantNumber;
     @FXML
@@ -142,68 +141,23 @@ public class AddNewParticipant {
 
                 anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
                 labelExample.setTextFill(Paint.valueOf(selectedFontColor));
-//                            setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
-//                            setTextFill(Paint.valueOf(selectedFontColor));
+
             }
         });
-//        comboBoxStyle.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-//            @Override
-//            public ListCell<String> call(ListView<String> param) {
-//                return new ListCell<String>() {
-//
-//                    @Override
-//                    public void updateItem(String item,
-//                                           boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (item != null) {
-//                            setText(item);
-//                            String selectedColor;
-//                            String selectedFontColor;
-//                            if (item.contains(StyleDesign.StyleType.GREEN.toString())) {
-//                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.GREEN);
-//                                selectedColor = styleDesign.backgroundColor;
-//                                selectedFontColor = styleDesign.fontColor;
-//                            } else if (item.contains(StyleDesign.StyleType.SEPIA.toString())) {
-//                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
-//                                selectedColor = styleDesign.backgroundColor;
-//                                selectedFontColor = styleDesign.fontColor;
-//                            } else if (item.contains(StyleDesign.StyleType.BLACK.toString())) {
-//                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.BLACK);
-//                                selectedColor = styleDesign.backgroundColor;
-//                                selectedFontColor = styleDesign.fontColor;
-//                            } else {
-//                                StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.WHITE);
-//                                selectedColor = styleDesign.backgroundColor;
-//                                selectedFontColor = styleDesign.fontColor;
-//                            }
-//
-//                            anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
-//                            labelExample.setTextFill(Paint.valueOf(selectedFontColor));
-////                            setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
-////                            setTextFill(Paint.valueOf(selectedFontColor));
-//                        } else {
-//                            setText(null);
-//                        }
-//                    }
-//                };
-//            }
-//        });
+
 
         btnSave.setDisable(true);
 
     }
 
-    public void setListView(ObservableList<String> birds) {
+    public void setListView(ObservableList<String> words) {
 
-        birdImages = FXCollections.observableArrayList();
+        wordListTmp = FXCollections.observableArrayList();
 
-        birds.forEach(bird -> birdImages.add(bird));
+        words.forEach(word -> wordListTmp.add(word));
 
-        listView.setItems(birds);
-//        ListView<String> birdList = new ListView<>(birds);
-        listView.setCellFactory(param -> new BirdCell());
-//        listView.setPrefWidth(180);
-//        listView.setStyle("-fx-focus-color: transparent;");
+        listView.setItems(words);
+        listView.setCellFactory(param -> new WordCell());
     }
 
     public void setScene(Scene scene) {
@@ -319,9 +273,9 @@ public class AddNewParticipant {
         }
     }
 
-    private class BirdCell extends ListCell<String> {
+    private class WordCell extends ListCell<String> {
 
-        public BirdCell() {
+        WordCell() {
             ListCell thisCell = this;
 
             setContentDisplay(ContentDisplay.TEXT_ONLY);
@@ -332,7 +286,6 @@ public class AddNewParticipant {
                     return;
                 }
 
-//                ObservableList<String> items = getListView().getItems();
 
                 Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -341,9 +294,6 @@ public class AddNewParticipant {
                 dragboard.setDragView(new Image("paper-x-java-icon-48px.png"));
                 dragboard.setContent(content);
 
-//                System.out.println("setOnDragDetected");
-//
-//                scene.setCursor(Cursor.OPEN_HAND);
 
                 event.consume();
             });
@@ -354,9 +304,6 @@ public class AddNewParticipant {
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
 
-//                scene.setCursor(Cursor.CLOSED_HAND);
-//
-//                System.out.println("setOnDragOver");
 
                 event.consume();
             });
@@ -365,9 +312,7 @@ public class AddNewParticipant {
                 if (event.getGestureSource() != thisCell &&
                         event.getDragboard().hasString()) {
                     setOpacity(0.3);
-//                    scene.setCursor(Cursor.HAND);
-//
-//                    System.out.println("setOnDragEntered");
+
 
                 }
             });
@@ -376,8 +321,7 @@ public class AddNewParticipant {
                 if (event.getGestureSource() != thisCell &&
                         event.getDragboard().hasString()) {
                     setOpacity(1);
-//                    System.out.println("setOnDragExited");
-//                    scene.setCursor(Cursor.DEFAULT);
+
                 }
             });
 
@@ -385,8 +329,6 @@ public class AddNewParticipant {
                 if (getItem() == null) {
                     return;
                 }
-
-//                System.out.println("setOnDragDropped");
 
 
                 Dragboard db = event.getDragboard();
@@ -397,9 +339,9 @@ public class AddNewParticipant {
                     int draggedIdx = items.indexOf(db.getString());
                     int thisIdx = items.indexOf(getItem());
 
-                    String temp = birdImages.get(draggedIdx);
-                    birdImages.set(draggedIdx, birdImages.get(thisIdx));
-                    birdImages.set(thisIdx, temp);
+                    String temp = wordListTmp.get(draggedIdx);
+                    wordListTmp.set(draggedIdx, wordListTmp.get(thisIdx));
+                    wordListTmp.set(thisIdx, temp);
 
                     items.set(draggedIdx, getItem());
                     items.set(thisIdx, db.getString());
@@ -426,7 +368,7 @@ public class AddNewParticipant {
             if (empty || item == null) {
                 setText(null);
             } else {
-                setText(birdImages.get(getListView().getItems().indexOf(item)));
+                setText(wordListTmp.get(getListView().getItems().indexOf(item)));
 
             }
         }

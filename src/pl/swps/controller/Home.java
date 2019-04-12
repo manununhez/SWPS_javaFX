@@ -20,12 +20,6 @@ public class Home {
     private MainApp mainApp;
 
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    public Home() {
-    }
 
     /**
      * Initializes the controller class. This method is automatically called

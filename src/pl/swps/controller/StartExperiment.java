@@ -145,68 +145,15 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         String text = "Za chwilę rozpocznie się zadanie komputerowe. " +
                 "Na ekranie będą wyświetlane po kolei słowa. Twoim zadaniem będzie zapamiętanie jak największej ich liczby. " +
                 "Naciśnij spację, aby przejść dalej.";
-        return setAnchorPane("wizard_1", styleDesign, text);
-//        GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setStyle("-fx-background-color:" + KINDLE_SEPIA_COLOR_CODE + ";");
-//
-//        Label label = new Label("Za chwilę rozpocznie się zadanie komputerowe. " +
-//                "Na ekranie będą wyświetlane po kolei słowa. Twoim zadaniem będzie zapamiętanie jak największej ich liczby. " +
-//                "Naciśnij spację, aby przejść dalej.");
-//        label.setPadding(new Insets(50, 100, 50, 100));
-//        label.setTextAlignment(TextAlignment.CENTER);
-//        label.setAlignment(Pos.CENTER);
-//        label.setWrapText(true);
-//        label.setTextFill(Paint.valueOf(KINDLE_SEPIA_TEXT_COLOR_CODE));
-//        label.setFont(new Font(KINDLE_SEPIA_FONT_NAME, 47.0));
-//
-//        grid.add(label, 0, 0);
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setId("wizard_1");
-//        anchorPane.getChildren().add(grid);
-//
-//        return anchorPane;
-////        return grid;
 
+        return setAnchorPane("wizard_1", styleDesign, text);
     }
 
 
     private AnchorPane wizard_2_first_space_bar() {
         String text = "Naciśnij spację, aby rozpocząć zadanie.";
+
         return setAnchorPane("wizard_2_first_space_bar", styleDesign, text);
-
-//        GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setStyle("-fx-background-color:" + KINDLE_SEPIA_COLOR_CODE + ";");
-//
-//        Label label = new Label("Naciśnij spację, aby rozpocząć zadanie.");
-//        label.setAlignment(Pos.CENTER);
-//        label.setTextAlignment(TextAlignment.CENTER);
-//        label.setWrapText(true);
-//        label.setTextFill(Paint.valueOf(KINDLE_SEPIA_TEXT_COLOR_CODE));
-//        label.setFont(new Font(KINDLE_SEPIA_FONT_NAME, 47.0));
-//
-//        grid.add(label, 0, 0);
-//
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setId("wizard_2_first_space_bar");
-//        anchorPane.getChildren().add(grid);
-//
-//        return anchorPane;
-
-//        return grid;
     }
 
     private AnchorPane wizard_3_after_list() {
@@ -214,103 +161,17 @@ public class StartExperiment implements EventHandler<KeyEvent> {
                 "Kolejność słów nie ma znaczenia.\n" +
                 "Po wypisaniu słów, proszę nacisnąć spację.";
         return setAnchorPane("wizard_3_after_list", styleDesign, text);
-//        GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setStyle("-fx-background-color:" + KINDLE_SEPIA_COLOR_CODE + ";");
-//
-//
-//        Label label = new Label("Proszę teraz wypisać na kartce wszystkie zapamiętane słowa.\n" +
-//                "Kolejność słów nie ma znaczenia.\n" +
-//                "Po wypisaniu słów, proszę nacisnąć spację.");
-//        label.setPadding(new Insets(50, 100, 50, 100));
-//        label.setTextAlignment(TextAlignment.CENTER);
-//        label.setAlignment(Pos.CENTER);
-//        label.setWrapText(true);
-//        label.setTextFill(Paint.valueOf(KINDLE_SEPIA_TEXT_COLOR_CODE));
-//        label.setFont(new Font(KINDLE_SEPIA_FONT_NAME, 47.0));
-//
-//        grid.add(label, 0, 0);
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setId("wizard_3_after_list");
-//        anchorPane.getChildren().add(grid);
-//
-//        return anchorPane;
-
-//        return grid;
-
     }
 
 
     private AnchorPane wizard_4_next_space_bar() {
         String text = "Naciśnij spację, aby rozpocząć kolejne zadanie.";
         return setAnchorPane("wizard_4_next_space_bar", styleDesign, text);
-
-//        GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setStyle("-fx-background-color:" + KINDLE_SEPIA_COLOR_CODE + ";");
-//
-//        Label label = new Label("Naciśnij spację, aby rozpocząć kolejne zadanie.");
-//        label.setAlignment(Pos.CENTER);
-//        label.setTextAlignment(TextAlignment.CENTER);
-//        label.setWrapText(true);
-//        label.setTextFill(Paint.valueOf(KINDLE_SEPIA_TEXT_COLOR_CODE));
-//        label.setFont(new Font(KINDLE_SEPIA_FONT_NAME, 47.0));
-//
-//        grid.add(label, 0, 0);
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setId("wizard_4_next_space_bar");
-//        anchorPane.getChildren().add(grid);
-//
-//        return anchorPane;
     }
 
     private AnchorPane wizard_5_final() {
         String text = " Dziękujemy, to już koniec zadania komputerowego.";
         return setAnchorPane("wizard_5_final", styleDesign, text);
-//
-//        GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setStyle("-fx-background-color:" + KINDLE_SEPIA_COLOR_CODE + ";");
-//
-//        Label label = new Label(" Dziękujemy, to już koniec zadania komputerowego.");
-//        label.setPadding(new Insets(50, 100, 50, 100));
-//        label.setTextAlignment(TextAlignment.CENTER);
-//        label.setAlignment(Pos.CENTER);
-//        label.setWrapText(true);
-//        label.setTextFill(Paint.valueOf(KINDLE_SEPIA_TEXT_COLOR_CODE));
-//        label.setFont(new Font(KINDLE_SEPIA_FONT_NAME, 47.0));
-//
-//        grid.add(label, 0, 0);
-//
-//
-//        AnchorPane.setTopAnchor(grid, 0.0);
-//        AnchorPane.setBottomAnchor(grid, 0.0);
-//        AnchorPane.setLeftAnchor(grid, 0.0);
-//        AnchorPane.setRightAnchor(grid, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setId("wizard_5_final");
-//        anchorPane.getChildren().add(grid);
-//
-//        return anchorPane;
-
     }
 
 

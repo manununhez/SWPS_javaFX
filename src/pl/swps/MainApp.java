@@ -28,10 +28,10 @@ import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
     private static final String VIEW_ROOT_LAYOUT_FXML = "view/RootLayout.fxml";
-    public static final String FILE_PATH = "filePath";
+    private static final String FILE_PATH = "filePath";
     private static final String VIEW_START_EXPERIMENT_FXML = "view/StartExperiment.fxml";
     private static final String VIEW_ADD_NEW_PARTICIPANT_FXML = "view/AddNewParticipant.fxml";
-    public static final String CSV_EXTENSION = ".csv";
+    private static final String CSV_EXTENSION = ".csv";
 
     private static final String PRIMARY_STAGE_TITLE = "SWSP University App";
     private static final String SECONDARY_STAGE_TITLE = "Experiment started";
@@ -43,16 +43,10 @@ public class MainApp extends Application {
     private ScreenController screenController;
 
     private Participant participant;
-    //    private List<WordList> wordLists;
-//    private List<Participant> participants;
-    //    The data as an observable List of Persons.
+
     private ObservableList<WordList> wordLists = FXCollections.observableArrayList();
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
 
-    public MainApp() {
-//        wordLists = new ArrayList<>();
-//        participants = new ArrayList<>();
-    }
 
     public static void main(String[] args) {
         launch(args);
