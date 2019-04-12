@@ -222,18 +222,18 @@ public class MainApp extends Application {
      */
     public void showStartExperiment(StyleDesign style) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
+//            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(VIEW_START_EXPERIMENT_FXML));
             BorderPane page = loader.load();
-
-            // Create the dialog Stage.
+//
+//            // Create the dialog Stage.
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
-//            secondaryStage.initOwner(primaryStage);
-            secondaryStage.setMaximized(true);
-
+            secondaryStage.initOwner(primaryStage);
+//            secondaryStage.setMaximized(true);
+//
             //new scene
             Scene scene = new Scene(page);
             secondaryStage.setScene(scene);

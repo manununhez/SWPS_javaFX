@@ -34,11 +34,6 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     private Participant participant;
     private StyleDesign styleDesign;
 
-//    @FXML
-//    private void initialize() {
-//        styleDesign = newInstance(StyleType.GREEN);
-//
-//    }
 
     public void initScreenFlow() {
         screenController = new ScreenController(rootLayout);
