@@ -1,4 +1,4 @@
-package pl.swps.controller;
+package pl.swps.view;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

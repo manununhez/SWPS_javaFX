@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.Results">
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.view.Results">
     <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: #5c6bc0;">

@@ -1,4 +1,4 @@
-package pl.swps.controller;
+package pl.swps.view;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

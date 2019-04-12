@@ -1,4 +1,4 @@
-package pl.swps.controller;
+package pl.swps.view;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

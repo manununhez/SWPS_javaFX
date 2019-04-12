@@ -1,4 +1,4 @@
-package pl.swps.controller;
+package pl.swps.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

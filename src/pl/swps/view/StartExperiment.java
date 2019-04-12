@@ -1,4 +1,4 @@
-package pl.swps.controller;
+package pl.swps.view;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class StartExperiment implements EventHandler<KeyEvent> {
-    private static final String VIEW_EXPERIMENT_FXML = "../view/Experiment.fxml";
+    private static final String VIEW_EXPERIMENT_FXML = "Experiment.fxml";
 
     //    private static final String KINDLE_SEPIA_FONT_NAME = "Georgia"; //Palatino
     private Stage experimentStage;

@@ -5,4 +5,4 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" mouseTransparent="true" prefHeight="700.0" prefWidth="900.0"
             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
             AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            fx:controller="pl.swps.controller.StartExperiment"/>
+            fx:controller="pl.swps.view.StartExperiment"/>

@@ -10,18 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pl.swps.controller.*;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
 import pl.swps.model.WordListCSVWrapper;
 import pl.swps.util.CSVReader;
 import pl.swps.util.CSVWriter;
+import pl.swps.view.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -232,7 +230,7 @@ public class MainApp extends Application {
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
             secondaryStage.initOwner(primaryStage);
-//            secondaryStage.setMaximized(true);
+            secondaryStage.setMaximized(true);
 //
             //new scene
             Scene scene = new Scene(page);
@@ -299,9 +297,10 @@ public class MainApp extends Application {
         BufferedReader br;
         try {
             //Create the file reader
-            br = new BufferedReader(new FileReader(file));
+//            br = new BufferedReader(new FileReader(file));
 
-
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file),
+                    StandardCharsets.UTF_8));
             CSVReader csvReader = new CSVReader(br);
 
             WordListCSVWrapper wordListCSVWrapper = new WordListCSVWrapper(csvReader.readAll());
