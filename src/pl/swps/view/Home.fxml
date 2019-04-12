@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.controller.Home">
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: #5c6bc0;">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="600.0"
+                   styleClass="label-title" text="Home" textAlignment="CENTER" textFill="WHITE"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
+        <Label alignment="TOP_CENTER" text="&lt;&lt;Some text to introduce as a Home message&gt;&gt;">
+            <VBox.margin>
+                <Insets left="50.0" top="10.0"/>
+            </VBox.margin>
+        </Label>
+        <VBox alignment="TOP_CENTER">
+            <VBox.margin>
+                <Insets bottom="10.0" left="30.0" right="30.0" top="20.0"/>
+            </VBox.margin>
+            <Label text="List of words loaded:"/>
+            <AnchorPane prefHeight="417.0" prefWidth="850.0">
+                <SplitPane dividerPositions="0.4180602006688963" layoutX="6.0" layoutY="14.0"
+                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="0.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <TableView fx:id="wordsTable" layoutX="-13.0" layoutY="29.0" prefHeight="200.0"
+                                   prefWidth="215.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="listIdColumn" prefWidth="75.0" text="List#"/>
+                                <TableColumn fx:id="categoryColumn" minWidth="-1.0" prefWidth="-1.0" text="Category"/>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <VBox prefHeight="264.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label alignment="CENTER" contentDisplay="CENTER" text="List of Words:">
+                                <VBox.margin>
+                                    <Insets left="5.0" top="5.0"/>
+                                </VBox.margin>
+                            </Label>
+                            <ListView fx:id="listViewWords">
+                                <VBox.margin>
+                                    <Insets top="5.0"/>
+                                </VBox.margin>
+                            </ListView>
+                        </VBox>
+                    </AnchorPane>
+                </SplitPane>
+            </AnchorPane>
+        </VBox>
+
+    </VBox>
+</AnchorPane>

@@ -1,8 +1,11 @@
 package pl.swps;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -11,78 +14,44 @@ import pl.swps.controller.*;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
+import pl.swps.model.WordListCSVWrapper;
+import pl.swps.util.CSVReader;
+import pl.swps.util.CSVWriter;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
     private static final String VIEW_ROOT_LAYOUT_FXML = "view/RootLayout.fxml";
-    private static final String VIEW_EXPERIMENT_OVERVIEW_FXML = "view/ExperimentOverview.fxml";
+    public static final String FILE_PATH = "filePath";
     private static final String VIEW_START_EXPERIMENT_FXML = "view/StartExperiment.fxml";
     private static final String VIEW_ADD_NEW_PARTICIPANT_FXML = "view/AddNewParticipant.fxml";
+    public static final String CSV_EXTENSION = ".csv";
 
-    private static final String PRIMARY_STAGE_TITLE = "SWSP University";
-    private static final String SECONDARY_STAGE_TITLE = "Starting Experiment";
+    private static final String PRIMARY_STAGE_TITLE = "SWSP University App";
+    private static final String SECONDARY_STAGE_TITLE = "Experiment started";
+    private static final String VIEW_HOME_FXML = "view/Home.fxml";
+    private static final String VIEW_RESULTS_FXML = "view/Results.fxml";
 
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ScreenController screenController;
 
     private Participant participant;
-    private List<WordList> wordLists;
-    private List<Participant> participants;
+    //    private List<WordList> wordLists;
+//    private List<Participant> participants;
+    //    The data as an observable List of Persons.
+    private ObservableList<WordList> wordLists = FXCollections.observableArrayList();
+    private ObservableList<Participant> participants = FXCollections.observableArrayList();
 
     public MainApp() {
-        wordLists = new ArrayList<>();
-        participants = new ArrayList<>();
-        ArrayList<String> originalList = new ArrayList<>();
-        originalList.add("uno");
-        originalList.add("dos");
-        originalList.add("tres");
-        originalList.add("cuatro");
-        originalList.add("cinco");
-        originalList.add("seis");
-        originalList.add("siete");
-        originalList.add("ocho");
-        originalList.add("nueve");
-        originalList.add("diez");
-//        originalList.add("diez");
-//        originalList.add("once");
-//        originalList.add("doce");
-//        originalList.add("trece");
-//        originalList.add("catorce");
-//        originalList.add("quince");
-
-        Collections.shuffle(originalList);
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_POSITIVE, "Lists#1", originalList));
-        Collections.shuffle(originalList);
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_POSITIVE, "Lists#2", originalList));
-        Collections.shuffle(originalList);
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_POSITIVE, "Lists#3", originalList));
-        Collections.shuffle(originalList);
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_POSITIVE, "Lists#4", originalList));
-        Collections.shuffle(originalList);
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_NEGATIVE, "Lists#5", originalList));
-        Collections.shuffle(originalList, new Random(5));
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_NEGATIVE, "Lists#6", originalList));
-        Collections.shuffle(originalList, new Random(5));
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_NEGATIVE, "Lists#7", originalList));
-        Collections.shuffle(originalList, new Random(5));
-//        System.out.println(originalList);
-        wordLists.add(new WordList(WordList.CATEGORY_NEGATIVE, "Lists#8", originalList));
-
-//        System.out.println("Constructor =>"+wordLists);
-
+//        wordLists = new ArrayList<>();
+//        participants = new ArrayList<>();
     }
 
     public static void main(String[] args) {
@@ -100,7 +69,7 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showExperimentOverview();
+        showHome();
     }
 
     /**
@@ -125,28 +94,37 @@ public class MainApp extends Application {
             //We add the main scene to the stack
             screenController = new ScreenController(rootLayout);
 
+            //Try to load last opened person file
+            File file = getPersonFilePath();
+
+            if (file != null) {
+                if (file.getPath().endsWith(CSV_EXTENSION)) {
+                    loadPersonDataFromFileCSV(file);
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Shows the experiment overview inside the root layout.
+     * Shows the home inside the root layout.
      */
-    public void showExperimentOverview() {
+    public void showHome() {
         try {
-            // Load participant overview.
+            // Load home.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_EXPERIMENT_OVERVIEW_FXML));
-            AnchorPane experimentOverview = loader.load();
+            loader.setLocation(MainApp.class.getResource(VIEW_HOME_FXML));
+            AnchorPane home = loader.load();
 
             //we add this pane to the stack
-            screenController.addScreen(experimentOverview);
-            // Set participant overview into the center of root layout.
+            screenController.addScreen(home);
+            // Set home into the center of root layout.
             screenController.activate();
 
             //Give the controller acces to the main app.
-            ExperimentOverview controller = loader.getController();
+            Home controller = loader.getController();
             controller.setMainApp(this);
 
 
@@ -156,18 +134,18 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the experiment overview inside the root layout.
+     * Shows the new experiment inside the root layout.
      */
     public void showNewExperiment() {
         try {
-            // Load participant overview.
+            // Load new experiment.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(VIEW_ADD_NEW_PARTICIPANT_FXML));
             AnchorPane addNewParticipant = loader.load();
 
             //we add this pane to the stack
             screenController.addScreen(addNewParticipant);
-            // Set participant overview into the center of root layout.
+            // Set new experiment into the center of root layout.
             screenController.activate();
 
 
@@ -181,8 +159,38 @@ public class MainApp extends Application {
         }
     }
 
-    public List<WordList> getWordLists() {
+    /**
+     * Shows the results inside the root layout.
+     */
+    public void showResults() {
+        try {
+            // Load results.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(VIEW_RESULTS_FXML));
+            AnchorPane resultsPAne = loader.load();
+
+            //we add this pane to the stack
+            screenController.addScreen(resultsPAne);
+            // Set results into the center of root layout.
+            screenController.activate();
+
+
+            //Give the controller access to the main app.
+            Results controller = loader.getController();
+//            controller.setScene(primaryStage.getScene());
+            controller.setMainApp(this);
+//            controller.setWordList(wordLists);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<WordList> getWordLists() {
         return wordLists;
+    }
+
+    public ObservableList<Participant> getParticipants() {
+        return participants;
     }
 
 
@@ -251,5 +259,113 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * Returns the person file preference, i.e. the file that was last opened.
+     * The preference is read from the OS specific registry. If no such
+     * preference can be found, null is returned.
+     *
+     * @return
+     */
+    public File getPersonFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        String filePath = prefs.get(FILE_PATH, null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the file path of the currently loaded file. The path is persisted in
+     * the OS specific registry.
+     *
+     * @param file the file or null to remove the path
+     */
+    public void setPersonFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put(FILE_PATH, file.getPath());
+
+            // Update the stage title.
+            primaryStage.setTitle(PRIMARY_STAGE_TITLE + " - " + file.getName());
+        } else {
+            prefs.remove(FILE_PATH);
+
+            // Update the stage title.
+            primaryStage.setTitle(PRIMARY_STAGE_TITLE);
+        }
+    }
+
+
+    public void loadPersonDataFromFileCSV(File file) {
+        BufferedReader br;
+        try {
+            //Create the file reader
+            br = new BufferedReader(new FileReader(file));
+
+
+            CSVReader csvReader = new CSVReader(br);
+
+            WordListCSVWrapper wordListCSVWrapper = new WordListCSVWrapper(csvReader.readAll());
+            wordLists.clear();
+            wordLists.addAll(wordListCSVWrapper.getListFromCSV());
+
+            csvReader.close();
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load data");
+            alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Saves the current person data to the specified file.
+     *
+     * @param file filename
+     */
+    public void savePersonDataToFileCSV(File file) {
+
+        CSVWriter csvWriter;
+        try {
+            csvWriter = new CSVWriter(file, null);
+            csvWriter.writeHeader(new String[]{"Participant#", "Sex", "Years of education",
+                    "Date of the experiment", "Category", "Lists"});
+
+            for (Participant participant : participants) {
+                List<String> listOfKeys = new ArrayList<>();
+
+                for (WordList wordList : participant.wordLists)
+                    listOfKeys.add(wordList.key);
+
+                csvWriter.writeData(new String[]{String.valueOf(participant.participantNumber),
+                        participant.sex, String.valueOf(participant.yearsOfEducation), participant.getTimestampFormatted(),
+                        participant.category, String.join(",", listOfKeys)});
+            }
+
+            csvWriter.close();
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+            alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+
+
     }
 }

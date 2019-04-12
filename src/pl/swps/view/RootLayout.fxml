@@ -19,8 +19,6 @@
                     styleClass="button-flat" text="RESULTS"/>
             <Button mnemonicParsing="false" onAction="#handleUpload" prefHeight="30.0" prefWidth="180.0"
                     styleClass="button-flat" text="UPLOAD DATA (CSV)" wrapText="true"/>
-            <Button mnemonicParsing="false" onAction="#handleExport" prefHeight="30.0" prefWidth="180.0"
-                    styleClass="button-flat" text="EXPORT RESULTS"/>
             <Button mnemonicParsing="false" onAction="#handleAbout" prefHeight="30.0" prefWidth="180.0"
                     styleClass="button-flat" text="ABOUT"/>
             <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="30.0" prefWidth="180.0"
