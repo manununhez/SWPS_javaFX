@@ -41,6 +41,8 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         //we add this pane to the stack
         screenController.addScreen(wizard_5_final());
 
+        screenController.addScreen(wizard_3_after_list());
+
         screenController.addScreen(showExperiment(participant.wordLists.get(SETTINGS_LIST_PER_PARTICIPANT - 1))); //Last test
 
         for (int i = SETTINGS_LIST_PER_PARTICIPANT - 2; i >= 0; i--) {
@@ -224,7 +226,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         }
     }
 
-    private void activateNewScreen() {
+    public void activateNewScreen() {
         screenController.removeScreen();
         screenController.activate();
 

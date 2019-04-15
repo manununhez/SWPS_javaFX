@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import pl.swps.MainApp;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
+import pl.swps.model.StyleDesign.StyleType;
 import pl.swps.model.WordList;
 
 import java.util.ArrayList;
@@ -59,6 +60,11 @@ public class AddNewParticipant {
     public AnchorPane anchorPaneExample;
     @FXML
     public Label labelExample;
+    @FXML
+    public ComboBox comboBoxFontType;
+    @FXML
+    public Spinner spinnerFontSize;
+
     private HashMap<String, WordList> hashMap = new HashMap<>();
 
 
@@ -102,18 +108,20 @@ public class AddNewParticipant {
             }
         });
 
-        comboBoxStyle.getItems().addAll(StyleDesign.StyleType.GREEN.toString(),
-                StyleDesign.StyleType.SEPIA.toString(),
-                StyleDesign.StyleType.BLACK.toString(),
-                StyleDesign.StyleType.WHITE.toString());
+        comboBoxStyle.getItems().addAll(StyleType.GREEN.toString(),
+                StyleType.SEPIA.toString(),
+                StyleType.BLACK.toString(),
+                StyleType.LIGHT.toString(),
+                StyleType.DARK.toString(),
+                StyleType.WHITE.toString());
 
 
-        //==== Default value for combobox
-        StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
-        comboBoxStyle.setValue(StyleDesign.StyleType.SEPIA.toString());
+        // Default value for combobox
+        StyleDesign styleDesign = StyleDesign.newInstance(StyleType.LIGHT);
+        comboBoxStyle.setValue(StyleType.LIGHT.toString());
         anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(styleDesign.backgroundColor), CornerRadii.EMPTY, Insets.EMPTY)));
         labelExample.setTextFill(Paint.valueOf(styleDesign.fontColor));
-        labelExample.setFont(new Font(styleDesign.fontName, 15.0));
+
 
         comboBoxStyle.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
@@ -121,23 +129,29 @@ public class AddNewParticipant {
                 String item = (String) observable.getValue();
                 String selectedColor;
                 String selectedFontColor;
-                if (item.contains(StyleDesign.StyleType.GREEN.toString())) {
-                    StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.GREEN);
-                    selectedColor = styleDesign.backgroundColor;
-                    selectedFontColor = styleDesign.fontColor;
-                } else if (item.contains(StyleDesign.StyleType.SEPIA.toString())) {
-                    StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
-                    selectedColor = styleDesign.backgroundColor;
-                    selectedFontColor = styleDesign.fontColor;
-                } else if (item.contains(StyleDesign.StyleType.BLACK.toString())) {
-                    StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.BLACK);
-                    selectedColor = styleDesign.backgroundColor;
-                    selectedFontColor = styleDesign.fontColor;
+                StyleDesign styleDesign;
+                if (item.contains(StyleType.GREEN.toString())) {
+                    styleDesign = StyleDesign.newInstance(StyleType.GREEN);
+
+                } else if (item.contains(StyleType.SEPIA.toString())) {
+                    styleDesign = StyleDesign.newInstance(StyleType.SEPIA);
+
+                } else if (item.contains(StyleType.BLACK.toString())) {
+                    styleDesign = StyleDesign.newInstance(StyleType.BLACK);
+
+                } else if (item.contains(StyleType.WHITE.toString())) {
+                    styleDesign = StyleDesign.newInstance(StyleType.WHITE);
+
+                } else if (item.contains(StyleType.LIGHT.toString())) {
+                    styleDesign = StyleDesign.newInstance(StyleType.LIGHT);
+
                 } else {
-                    StyleDesign styleDesign = StyleDesign.newInstance(StyleDesign.StyleType.WHITE);
-                    selectedColor = styleDesign.backgroundColor;
-                    selectedFontColor = styleDesign.fontColor;
+                    styleDesign = StyleDesign.newInstance(StyleType.DARK);
+
                 }
+
+                selectedColor = styleDesign.backgroundColor;
+                selectedFontColor = styleDesign.fontColor;
 
                 anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
                 labelExample.setTextFill(Paint.valueOf(selectedFontColor));
@@ -145,6 +159,24 @@ public class AddNewParticipant {
             }
         });
 
+        List<String> families = Font.getFamilies();
+        comboBoxFontType.setItems(FXCollections.observableList(families));
+        comboBoxFontType.setMaxWidth(Double.MAX_VALUE);
+        comboBoxFontType.getSelectionModel().select("Georgia");
+
+        labelExample.setFont(new Font(comboBoxFontType.getSelectionModel().getSelectedItem().toString(), 15.0));
+
+        comboBoxFontType.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            String item = (String) observableValue.getValue();
+            labelExample.setFont(new Font(item, 15.0));
+        });
+
+
+        // Value factory.
+        SpinnerValueFactory<Integer> valueFactory = //
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 47);//default value 47
+
+        spinnerFontSize.setValueFactory(valueFactory);
 
         btnSave.setDisable(true);
 
@@ -154,7 +186,7 @@ public class AddNewParticipant {
 
         wordListTmp = FXCollections.observableArrayList();
 
-        words.forEach(word -> wordListTmp.add(word));
+        wordListTmp.addAll(words);
 
         listView.setItems(words);
         listView.setCellFactory(param -> new WordCell());
@@ -168,50 +200,41 @@ public class AddNewParticipant {
 
         RadioButton selectedSexRadioButton = (RadioButton) toggleGroupSex.getSelectedToggle();
         RadioButton selectedGroupRadioButton = (RadioButton) toggleGroupNumber.getSelectedToggle();
-
+        String selectedFontType = (String) comboBoxFontType.getSelectionModel().getSelectedItem();
+        int selectedFontSize = (int) spinnerFontSize.getValue();
 
 //        if (isInputValid()) {
-            List<WordList> shuffleWordList = new ArrayList<>();
+        List<WordList> shuffleWordList = new ArrayList<>();
 
-            if (selectedGroupRadioButton.getText().equals(WordList.CATEGORY_POSITIVE)) {
-                for (String key : positiveWordList) {
-                    shuffleWordList.add(hashMap.get(key));
-                }
-            } else if (selectedGroupRadioButton.getText().equals(WordList.CATEGORY_NEGATIVE)) {
-                for (String key : negativeWordList) {
-                    shuffleWordList.add(hashMap.get(key));
-                }
+        if (selectedGroupRadioButton.getText().equals(WordList.CATEGORY_POSITIVE)) {
+            for (String key : positiveWordList) {
+                shuffleWordList.add(hashMap.get(key));
             }
+        } else if (selectedGroupRadioButton.getText().equals(WordList.CATEGORY_NEGATIVE)) {
+            for (String key : negativeWordList) {
+                shuffleWordList.add(hashMap.get(key));
+            }
+        }
 
 
-            Participant participant = new Participant(selectedSexRadioButton.getText(),
-                    Integer.valueOf(etParticipantNumber.getText()),
-                    Integer.valueOf(etYearsEduc.getText()),
-                    shuffleWordList);
+        Participant participant = new Participant(selectedSexRadioButton.getText(),
+                Integer.valueOf(etParticipantNumber.getText()),
+                Integer.valueOf(etYearsEduc.getText()),
+                shuffleWordList);
 
-            System.out.println(participant);
+        System.out.println(participant);
 
-            mainApp.setParticipant(participant);
-            //go to test
-            mainApp.showStartExperiment(getStyle((String) comboBoxStyle.getValue()));
+        mainApp.setParticipant(participant);
+
+
+        //go to test
+        StyleDesign seletectedStyleDesign = StyleDesign.getStyleInstance((String) comboBoxStyle.getValue());
+        seletectedStyleDesign.fontSize = selectedFontSize;
+        seletectedStyleDesign.fontName = selectedFontType;
+        mainApp.showStartExperiment(seletectedStyleDesign);
 //        }
     }
 
-    private StyleDesign getStyle(String value) {
-        if (value.contains(StyleDesign.StyleType.GREEN.toString())) {
-            return StyleDesign.newInstance(StyleDesign.StyleType.GREEN);
-        } else if (value.contains(StyleDesign.StyleType.SEPIA.toString())) {
-            return StyleDesign.newInstance(StyleDesign.StyleType.SEPIA);
-
-        } else if (value.contains(StyleDesign.StyleType.BLACK.toString())) {
-            return StyleDesign.newInstance(StyleDesign.StyleType.BLACK);
-
-        } else {
-            return StyleDesign.newInstance(StyleDesign.StyleType.WHITE);
-
-        }
-
-    }
 
     public void setWordList(List<WordList> originalWordLists) {
         this.originalWordLists = originalWordLists;
@@ -243,7 +266,6 @@ public class AddNewParticipant {
 
     /**
      * Validates the user input in the text fields.
-     *
      */
     private void isInputValid() {
         String errorMessage = "";

@@ -201,7 +201,7 @@
 .combo-box-base, .choice-box {
     -fx-background-color: transparent;
     -fx-border-color: -swatch-grey;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
@@ -249,7 +249,7 @@
 .check-box:indeterminate > .box {
     -fx-border-radius: 4.0;
     -fx-border-color: -swatch-grey;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-background-radius: 4;
     -fx-background-color: transparent;
     -fx-padding: 1;
@@ -310,13 +310,13 @@
  *                                                                             *
  ******************************************************************************/
 .combo-box .list-cell {
-    -fx-padding: 0.7em 0.7em 0.7em 0em;
+    -fx-padding: 0.7em 0.7em 0.7em 1em;
 }
 
 .popup-overlay {
     -fx-background-color: white;
     -fx-border-color: -swatch-grey;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
@@ -454,7 +454,7 @@
 }
 
 .list-cell {
-    -fx-cell-size: 35;
+    -fx-cell-size: 40;
 }
 
 /*******************************************************************************
@@ -526,7 +526,7 @@
 .radio-button:selected > .radio {
     -fx-border-radius: 100.0;
     -fx-border-color: -swatch-grey;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-background-radius: 100;
     -fx-background-color: transparent;
     -fx-padding: 3 3 3 3;
@@ -612,7 +612,7 @@
  ******************************************************************************/
 .spinner {
     -fx-background-color: transparent;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-border-color: -swatch-grey;
 }
 
@@ -624,7 +624,7 @@
     -fx-background-color: transparent;
     -fx-background-radius: 0;
     -fx-border-width: 0;
-    -fx-padding: 0.5em 0.5em 0.5em 0.1em;
+    -fx-padding: 0.5em 0.5em 0.5em 1em;
     -fx-prompt-text-fill: derive(-dark, 50.0%);
     -fx-highlight-fill: rgb(94.0, 203.0, 234.0);
 }
@@ -699,12 +699,12 @@
 }
 
 .text-area, .text-field {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-background-radius: 2.0;
     -fx-padding: 0.5em 0.5em 0.5em 0.1em;
-    -fx-border-color: -swatch-grey;
-    -fx-border-width: 0 0 2 0;
-    -fx-prompt-text-fill: derive(-dark, 50.0%);
+    -fx-border-color: -swatch-dark-grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: derive(-dark, 99.0%);
     -fx-highlight-fill: rgb(94.0, 203.0, 234.0);
 }
 
@@ -738,7 +738,7 @@
  ******************************************************************************/
 .tool-bar, .menu-bar { /* top */
     -fx-background-color: -swatch-toolbar;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-border-color: -swatch-grey;
     -fx-min-height: 48;
     -fx-alignment: CENTER_LEFT;
@@ -777,7 +777,7 @@
 
 .toolbar-colored {
     -fx-background-color: -swatch-500;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-border-color: -swatch-grey;
 }
 

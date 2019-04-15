@@ -29,6 +29,16 @@ public class WordList implements Serializable {
 
     }
 
+    public List<String> getValuesWithSpaces() {
+        List<String> temp = new ArrayList<>();
+        for (String value : values) {
+            temp.add(value);
+            temp.add("");
+        }
+
+        return temp;
+    }
+
     public StringProperty getKeyProperty() {
         return keyProperty;
     }
