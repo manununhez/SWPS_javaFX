@@ -97,6 +97,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
             //Give the controller acces to the main app.
             Experiment controller = loader.getController();
             controller.setValues(s);
+            controller.setStartExperiment(this);
             controller.setStyleDesign(styleDesign);
 
             experimentHashMap.put(pane.getId(), controller);
@@ -211,22 +212,26 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent event) {
         if (event.getCode().isWhitespaceKey()) {
-            if (screenController.isNotEmpty()) {
-                AnchorPane pane = (AnchorPane) screenController.getPane();
-                if (isTestScreen(pane)) {
-                    if (isLoopIsOver(pane))
-                        activateNewScreen();
-                } else
-                    activateNewScreen();
-
-            } else {
-                activateNewScreen();
-            }
+            keyBoardEvent();
 
         }
     }
 
-    public void activateNewScreen() {
+    public void keyBoardEvent() {
+        if (screenController.isNotEmpty()) {
+            AnchorPane pane = (AnchorPane) screenController.getPane();
+            if (isTestScreen(pane)) {
+                if (isLoopIsOver(pane))
+                    activateNewScreen();
+            } else
+                activateNewScreen();
+
+        } else {
+            activateNewScreen();
+        }
+    }
+
+    private void activateNewScreen() {
         screenController.removeScreen();
         screenController.activate();
 

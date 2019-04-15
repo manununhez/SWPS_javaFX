@@ -25,6 +25,12 @@ public class Experiment {
     @FXML
     public AnchorPane anchorPaneTest;
     private int SETTINGS_EXPOSITION_TIME = 2; //seconds
+    private StartExperiment startExperiment;
+
+
+    void setStartExperiment(StartExperiment startExperiment) {
+        this.startExperiment = startExperiment;
+    }
 
 
     void setValues(WordList wordList) {
@@ -49,25 +55,21 @@ public class Experiment {
         //We start a timer, goes from zero to cycleCount.
         //We iterate over wordList.values, without modifying its values.
         //The speed or duration of the iteration is duration.
-//        clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-//            if (it.hasNext()) {
-//                labelTest.setText(it.next());
-//            }
-//        }),
-//                new KeyFrame(Duration.seconds(duration))
-//        );
-//        clock.setCycleCount(cycleCount);
-//        clock.play();
-
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             if (it.hasNext()) {
                 labelTest.setText(it.next());
             }
         }), new KeyFrame(Duration.seconds(duration)));
 
+
         clock.setCycleCount(cycleCount);
         clock.play();
 
+        clock.setOnFinished(actionEvent -> {
+            System.out.println("Finish Loop\nClick spacebar");
+
+            startExperiment.keyBoardEvent();
+        });
 
     }
 
