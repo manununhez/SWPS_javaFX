@@ -14,6 +14,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import pl.swps.model.Instructions;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
@@ -33,26 +34,27 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     private HashMap<String, Experiment> experimentHashMap = new HashMap<>();
     private Participant participant;
     private StyleDesign styleDesign;
+    private Instructions instructions;
 
 
     public void initScreenFlow() {
         screenController = new ScreenController(rootLayout);
 
         //we add this pane to the stack
-        screenController.addScreen(wizard_5_final());
+        screenController.addScreen(getTaskScreen("wizard_5_final", instructions.messageS5_thanks));//wizard_5_final()
 
-        screenController.addScreen(wizard_3_after_list());
+        screenController.addScreen(getTaskScreen("wizard_3_after_list", instructions.messageS3_writeResults));//wizard_3_after_list()
 
         screenController.addScreen(showExperiment(participant.wordLists.get(SETTINGS_LIST_PER_PARTICIPANT - 1))); //Last test
 
         for (int i = SETTINGS_LIST_PER_PARTICIPANT - 2; i >= 0; i--) {
-            screenController.addScreen(wizard_4_next_space_bar());
-            screenController.addScreen(wizard_3_after_list());
+            screenController.addScreen(getTaskScreen("wizard_4_next_space_bar", instructions.messageS4_nextTaskProcedureButtons));//wizard_4_next_space_bar()
+            screenController.addScreen(getTaskScreen("wizard_3_after_list", instructions.messageS3_writeResults));//wizard_3_after_list()
             screenController.addScreen(showExperiment(participant.wordLists.get(i)));
         }
 
-        screenController.addScreen(wizard_2_first_space_bar());
-        screenController.addScreen(wizard_1());
+        screenController.addScreen(getTaskScreen("wizard_2_first_space_bar", instructions.messageS2_taskProcedureButtons));//wizard_2_first_space_bar()
+        screenController.addScreen(getTaskScreen("wizard_1", instructions.messageS1_taskInstructions));//wizard_1()
 
 
         // Set participant overview into the center of root layout.
@@ -64,9 +66,15 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         this.experimentStage = experimentStage;
     }
 
+    public void setInstructions(Instructions instructions) {
+        this.instructions = instructions;
+    }
+
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setOnKeyPressed(this);
+
+        setInstructions(new Instructions());
     }
 
     public void setPane(BorderPane page) {
@@ -139,38 +147,34 @@ public class StartExperiment implements EventHandler<KeyEvent> {
 
     }
 
-    private AnchorPane wizard_1() {
-        String text = "Za chwilę rozpocznie się zadanie komputerowe. " +
-                "Na ekranie będą wyświetlane po kolei słowa. Twoim zadaniem będzie zapamiętanie jak największej ich liczby. " +
-                "Naciśnij spację, aby przejść dalej.";
-
-        return setAnchorPane("wizard_1", styleDesign, text);
+    private AnchorPane getTaskScreen(String id, String message) {
+        return setAnchorPane(id, styleDesign, message);
     }
 
 
-    private AnchorPane wizard_2_first_space_bar() {
-        String text = "Naciśnij spację, aby rozpocząć zadanie.";
-
-        return setAnchorPane("wizard_2_first_space_bar", styleDesign, text);
-    }
-
-    private AnchorPane wizard_3_after_list() {
-        String text = "Proszę teraz wypisać na kartce wszystkie zapamiętane słowa.\n" +
-                "Kolejność słów nie ma znaczenia.\n" +
-                "Po wypisaniu słów, proszę nacisnąć spację.";
-        return setAnchorPane("wizard_3_after_list", styleDesign, text);
-    }
-
-
-    private AnchorPane wizard_4_next_space_bar() {
-        String text = "Naciśnij spację, aby rozpocząć kolejne zadanie.";
-        return setAnchorPane("wizard_4_next_space_bar", styleDesign, text);
-    }
-
-    private AnchorPane wizard_5_final() {
-        String text = " Dziękujemy, to już koniec zadania komputerowego.";
-        return setAnchorPane("wizard_5_final", styleDesign, text);
-    }
+//    private AnchorPane wizard_2_first_space_bar() {
+//        String text = "Naciśnij spację, aby rozpocząć zadanie.";
+//
+//        return setAnchorPane("wizard_2_first_space_bar", styleDesign, text);
+//    }
+//
+//    private AnchorPane wizard_3_after_list() {
+//        String text = "Proszę teraz wypisać na kartce wszystkie zapamiętane słowa.\n" +
+//                "Kolejność słów nie ma znaczenia.\n" +
+//                "Po wypisaniu słów, proszę nacisnąć spację.";
+//        return setAnchorPane("wizard_3_after_list", styleDesign, text);
+//    }
+//
+//
+//    private AnchorPane wizard_4_next_space_bar() {
+//        String text = "Naciśnij spację, aby rozpocząć kolejne zadanie.";
+//        return setAnchorPane("wizard_4_next_space_bar", styleDesign, text);
+//    }
+//
+//    private AnchorPane wizard_5_final() {
+//        String text = " Dziękujemy, to już koniec zadania komputerowego.";
+//        return setAnchorPane("wizard_5_final", styleDesign, text);
+//    }
 
 
 //    private AnchorPane experimentScreen(WordList s) {

@@ -93,4 +93,8 @@ public class RootLayout {
     private void handleExit() {
         System.exit(0);
     }
+
+    public void handleInstructions(ActionEvent actionEvent) {
+
+    }
 }
