@@ -49,6 +49,10 @@ public class RootLayout {
         mainApp.showResults();
     }
 
+    public void handleInstructions(ActionEvent actionEvent) {
+        mainApp.showInstructions();
+    }
+
     public void handleUpload(ActionEvent actionEvent) {
         mainApp.showHome();
 
@@ -72,7 +76,6 @@ public class RootLayout {
         }
     }
 
-
     /**
      * Opens an about dialog.
      */
@@ -92,9 +95,5 @@ public class RootLayout {
     @FXML
     private void handleExit() {
         System.exit(0);
-    }
-
-    public void handleInstructions(ActionEvent actionEvent) {
-
     }
 }

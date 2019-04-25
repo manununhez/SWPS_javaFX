@@ -10,10 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pl.swps.model.Participant;
-import pl.swps.model.StyleDesign;
-import pl.swps.model.WordList;
-import pl.swps.model.WordListCSVWrapper;
+import pl.swps.model.*;
 import pl.swps.util.CSVReader;
 import pl.swps.util.CSVWriter;
 import pl.swps.view.*;
@@ -35,12 +32,14 @@ public class MainApp extends Application {
     private static final String SECONDARY_STAGE_TITLE = "Experiment started";
     private static final String VIEW_HOME_FXML = "view/Home.fxml";
     private static final String VIEW_RESULTS_FXML = "view/Results.fxml";
+    private static final String VIEW_INSTRUCTIONS_FXML = "view/Instructions.fxml";
 
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ScreenController screenController;
 
     private Participant participant;
+    private InstructionMessages instructionMessages = new InstructionMessages();
 
     private ObservableList<WordList> wordLists = FXCollections.observableArrayList();
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
@@ -177,6 +176,31 @@ public class MainApp extends Application {
         }
     }
 
+
+    public void showInstructions() {
+        try {
+            // Load results.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(VIEW_INSTRUCTIONS_FXML));
+            AnchorPane instructionsPane = loader.load();
+
+            //we add this pane to the stack
+            screenController.addScreen(instructionsPane);
+            // Set results into the center of root layout.
+            screenController.activate();
+
+
+            //Give the controller access to the main app.
+            Instructions controller = loader.getController();
+//            controller.setScene(primaryStage.getScene());
+            controller.setMainApp(this);
+            controller.setInstructions(instructionMessages);
+//            controller.setWordList(wordLists);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ObservableList<WordList> getWordLists() {
         return wordLists;
     }
@@ -242,6 +266,7 @@ public class MainApp extends Application {
             controller.setScene(scene);
             controller.setPane(page);
             controller.setParticipant(participant);
+            controller.setInstructionMessages(instructionMessages);
             controller.setStyle(style);
             controller.initScreenFlow();
 
@@ -361,4 +386,5 @@ public class MainApp extends Application {
 
 
     }
+
 }

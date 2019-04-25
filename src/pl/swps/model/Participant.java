@@ -18,6 +18,7 @@ public class Participant {
     private StringProperty participantNumberProperty;
     private StringProperty timestampProperty;
 
+
     public Participant(String sex, int participantNumber, int yearsOfEducation, List<WordList> wordLists) {
         this.wordLists = wordLists;
         this.category = wordLists.get(0).category;

@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.view.Instructions">
-    <children>
-        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+            xmlns="http://javafx.com/javafx/8.0.121" fx:controller="pl.swps.view.Instructions">
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: #5c6bc0;">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="600.0"
+                   styleClass="label-title" text="Instructions messages" textAlignment="CENTER" textFill="WHITE"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
+        <HBox alignment="CENTER_RIGHT">
+            <VBox.margin>
+                <Insets bottom="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false"
+                    onAction="#handleUploadInstructions" text="Upload instructions (CSV)"/>
+        </HBox>
+        <GridPane alignment="CENTER" VBox.vgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="165.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="435.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0"
+                                   prefWidth="113.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="482.0" minWidth="10.0" prefWidth="482.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -19,40 +33,77 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <children>
-                <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Text 1" GridPane.columnIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </TextArea>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </TextArea>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </TextArea>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </TextArea>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </TextArea>
-                <Label alignment="CENTER_RIGHT" text="Label" wrapText="true" GridPane.halignment="LEFT"/>
-                <Label text="Label" GridPane.rowIndex="1"/>
-                <Label text="Label" GridPane.rowIndex="2"/>
-                <Label text="Label" GridPane.rowIndex="3"/>
-                <Label text="Label" GridPane.rowIndex="4"/>
-            </children>
+            <TextArea fx:id="taTaskInstructions" prefHeight="200.0" prefWidth="200.0" wrapText="true"
+                      GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets bottom="5.0" left="5.0" top="5.0"/>
+                </GridPane.margin>
+            </TextArea>
+            <TextArea fx:id="taTaskButtons" prefHeight="200.0" prefWidth="200.0" wrapText="true"
+                      GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <GridPane.margin>
+                    <Insets bottom="5.0" left="5.0" top="5.0"/>
+                </GridPane.margin>
+            </TextArea>
+            <TextArea fx:id="taWriteResults" prefHeight="200.0" prefWidth="200.0" wrapText="true"
+                      GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <GridPane.margin>
+                    <Insets bottom="5.0" left="5.0" top="5.0"/>
+                </GridPane.margin>
+            </TextArea>
+            <TextArea fx:id="taTaskButtonsNext" prefHeight="200.0" prefWidth="200.0" wrapText="true"
+                      GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <GridPane.margin>
+                    <Insets bottom="5.0" left="5.0" top="5.0"/>
+                </GridPane.margin>
+            </TextArea>
+            <TextArea fx:id="taFinalMessage" prefHeight="200.0" prefWidth="200.0" wrapText="true"
+                      GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <GridPane.margin>
+                    <Insets bottom="5.0" left="5.0" top="5.0"/>
+                </GridPane.margin>
+            </TextArea>
+            <Label alignment="CENTER_RIGHT" prefWidth="160.0" text="Instructions about the task:" textAlignment="CENTER"
+                   wrapText="true" GridPane.halignment="LEFT">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefWidth="160.0" text="Instructions about the buttons for the first task:"
+                   textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefWidth="160.0" text="Instructions to write the results:"
+                   textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefWidth="160.0" text="Instructions about the buttons for the next task:"
+                   textAlignment="CENTER" wrapText="true" GridPane.rowIndex="3">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefWidth="160.0" text="Final Message (Thank you):" textAlignment="CENTER"
+                   wrapText="true" GridPane.rowIndex="4">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0"/>
+            </VBox.margin>
         </GridPane>
-    </children>
+        <HBox alignment="CENTER">
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+            <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    onAction="#handleSaveChanges" text="Save changes"/>
+        </HBox>
+    </VBox>
 </AnchorPane>

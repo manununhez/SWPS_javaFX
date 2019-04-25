@@ -14,7 +14,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import pl.swps.model.Instructions;
+import pl.swps.model.InstructionMessages;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
@@ -34,27 +34,33 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     private HashMap<String, Experiment> experimentHashMap = new HashMap<>();
     private Participant participant;
     private StyleDesign styleDesign;
-    private Instructions instructions;
+    private InstructionMessages instructionMessages;
 
 
     public void initScreenFlow() {
         screenController = new ScreenController(rootLayout);
 
         //we add this pane to the stack
-        screenController.addScreen(getTaskScreen("wizard_5_final", instructions.messageS5_thanks));//wizard_5_final()
+        screenController.addScreen(getTaskScreen("wizard_5_final",
+                instructionMessages.messageS5_thanks));//wizard_5_final()
 
-        screenController.addScreen(getTaskScreen("wizard_3_after_list", instructions.messageS3_writeResults));//wizard_3_after_list()
+        screenController.addScreen(getTaskScreen("wizard_3_after_list",
+                instructionMessages.messageS3_writeResults));//wizard_3_after_list()
 
         screenController.addScreen(showExperiment(participant.wordLists.get(SETTINGS_LIST_PER_PARTICIPANT - 1))); //Last test
 
         for (int i = SETTINGS_LIST_PER_PARTICIPANT - 2; i >= 0; i--) {
-            screenController.addScreen(getTaskScreen("wizard_4_next_space_bar", instructions.messageS4_nextTaskProcedureButtons));//wizard_4_next_space_bar()
-            screenController.addScreen(getTaskScreen("wizard_3_after_list", instructions.messageS3_writeResults));//wizard_3_after_list()
+            screenController.addScreen(getTaskScreen("wizard_4_next_space_bar",
+                    instructionMessages.messageS4_nextTaskProcedureButtons));//wizard_4_next_space_bar()
+            screenController.addScreen(getTaskScreen("wizard_3_after_list",
+                    instructionMessages.messageS3_writeResults));//wizard_3_after_list()
             screenController.addScreen(showExperiment(participant.wordLists.get(i)));
         }
 
-        screenController.addScreen(getTaskScreen("wizard_2_first_space_bar", instructions.messageS2_taskProcedureButtons));//wizard_2_first_space_bar()
-        screenController.addScreen(getTaskScreen("wizard_1", instructions.messageS1_taskInstructions));//wizard_1()
+        screenController.addScreen(getTaskScreen("wizard_2_first_space_bar",
+                instructionMessages.messageS2_taskProcedureButtons));//wizard_2_first_space_bar()
+        screenController.addScreen(getTaskScreen("wizard_1",
+                instructionMessages.messageS1_taskInstructions));//wizard_1()
 
 
         // Set participant overview into the center of root layout.
@@ -66,15 +72,13 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         this.experimentStage = experimentStage;
     }
 
-    public void setInstructions(Instructions instructions) {
-        this.instructions = instructions;
+    public void setInstructionMessages(InstructionMessages instructionMessages) {
+        this.instructionMessages = instructionMessages;
     }
 
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setOnKeyPressed(this);
-
-        setInstructions(new Instructions());
     }
 
     public void setPane(BorderPane page) {
@@ -221,7 +225,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         }
     }
 
-    public void keyBoardEvent() {
+    void keyBoardEvent() {
         if (screenController.isNotEmpty()) {
             AnchorPane pane = (AnchorPane) screenController.getPane();
             if (isTestScreen(pane)) {

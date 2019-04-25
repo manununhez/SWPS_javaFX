@@ -7,7 +7,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
             prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #e8eaf6;"
-            stylesheets="/pl/swps/view/MaterialDesign.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            stylesheets="/pl/swps/view/css/MaterialDesign.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
             fx:controller="pl.swps.view.RootLayout">
     <left>
         <VBox prefHeight="500.0" prefWidth="180.0" spacing="2.0" style="-fx-background-color: #3f51b5;">
