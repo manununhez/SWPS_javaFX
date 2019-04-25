@@ -5,6 +5,8 @@ import static pl.swps.model.StyleDesign.StyleType.*;
 public class StyleDesign {
     private static final String KINDLE_SEPIA_FONT_COLOR_CODE = "#5F4B32";
     private static final String KINDLE_SEPIA_BACKGROUND_COLOR_CODE = "#FBF0D9";
+    private static final String COLOR_WHITE = "#FFFFFF";
+    private static final String COLOR_BLACK = "#000000";
 
     public String fontName;
     public String fontColor;
@@ -28,15 +30,15 @@ public class StyleDesign {
             case SEPIA:
                 return new StyleDesign(KINDLE_SEPIA_FONT_COLOR_CODE, KINDLE_SEPIA_BACKGROUND_COLOR_CODE);
             case BLACK:
-                return new StyleDesign("#FFFFFF", "#000000");
+                return new StyleDesign(COLOR_WHITE, COLOR_BLACK);
             case GREEN:
                 return new StyleDesign("#45624E", "#C5E7CE");
             case WHITE:
-                return new StyleDesign("#000000", "#FFFFFF");
+                return new StyleDesign(COLOR_BLACK, COLOR_WHITE);
             case LIGHT:
                 return new StyleDesign("#424242", "#DEE4E7");
             case DARK:
-                return new StyleDesign("#FFFFFF", "#37474F");
+                return new StyleDesign(COLOR_WHITE, "#37474F");
             default:
                 return new StyleDesign();
         }

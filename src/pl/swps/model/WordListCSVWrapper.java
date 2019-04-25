@@ -17,8 +17,8 @@ public class WordListCSVWrapper {
     }
 
     public List<WordList> getListFromCSV() {
-        for (int i = 0; i < stringWords.size(); i++) {
-            String[] token = (String[]) stringWords.get(i);
+        for (Object stringWord : stringWords) {
+            String[] token = (String[]) stringWord;
             List<String> values = new ArrayList<>(Arrays.asList(token).subList(2, token.length));
             wordLists.add(new WordList(token[CATEGORY_IDX], token[LIST_ID_IDX], values));
         }

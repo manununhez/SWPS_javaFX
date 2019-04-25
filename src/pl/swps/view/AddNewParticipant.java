@@ -1,14 +1,11 @@
 package pl.swps.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -35,42 +32,32 @@ import java.util.List;
 public class AddNewParticipant {
     private static ObservableList<String> wordListTmp = FXCollections.observableArrayList();
     @FXML
-    public TextField etParticipantNumber;
+    private TextField etParticipantNumber;
     @FXML
-    public TextField etYearsEduc;
+    private TextField etYearsEduc;
     @FXML
-    public RadioButton rbMale;
+    private ToggleGroup toggleGroupNumber;
     @FXML
-    public RadioButton rbFemale;
+    private ToggleGroup toggleGroupSex;
     @FXML
-    public RadioButton rbPositive;
+    private ListView listView;
     @FXML
-    public RadioButton rbNegative;
+    private ComboBox comboBoxStyle;
     @FXML
-    public ToggleGroup toggleGroupNumber;
+    private Button btnSave;
     @FXML
-    public ToggleGroup toggleGroupSex;
+    private AnchorPane anchorPaneExample;
     @FXML
-    public ListView listView;
+    private Label labelExample;
     @FXML
-    public ComboBox comboBoxStyle;
+    private ComboBox comboBoxFontType;
     @FXML
-    public Button btnSave;
-    @FXML
-    public AnchorPane anchorPaneExample;
-    @FXML
-    public Label labelExample;
-    @FXML
-    public ComboBox comboBoxFontType;
-    @FXML
-    public Spinner spinnerFontSize;
+    private Spinner spinnerFontSize;
 
     private HashMap<String, WordList> hashMap = new HashMap<>();
 
 
     private MainApp mainApp;
-    private List<WordList> originalWordLists;
-    private Scene scene;
     private ObservableList<String> positiveWordList = FXCollections.observableArrayList();
     private ObservableList<String> negativeWordList = FXCollections.observableArrayList();
 
@@ -116,47 +103,44 @@ public class AddNewParticipant {
                 StyleType.WHITE.toString());
 
 
-        // Default value for combobox
+        // Default value for comboBox
         StyleDesign styleDesign = StyleDesign.newInstance(StyleType.LIGHT);
         comboBoxStyle.setValue(StyleType.LIGHT.toString());
         anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(styleDesign.backgroundColor), CornerRadii.EMPTY, Insets.EMPTY)));
         labelExample.setTextFill(Paint.valueOf(styleDesign.fontColor));
 
 
-        comboBoxStyle.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                String item = (String) observable.getValue();
-                String selectedColor;
-                String selectedFontColor;
-                StyleDesign styleDesign;
-                if (item.contains(StyleType.GREEN.toString())) {
-                    styleDesign = StyleDesign.newInstance(StyleType.GREEN);
+        comboBoxStyle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String item = (String) observable.getValue();
+            String selectedColor;
+            String selectedFontColor;
+            StyleDesign styleDesign1;
+            if (item.contains(StyleType.GREEN.toString())) {
+                styleDesign1 = StyleDesign.newInstance(StyleType.GREEN);
 
-                } else if (item.contains(StyleType.SEPIA.toString())) {
-                    styleDesign = StyleDesign.newInstance(StyleType.SEPIA);
+            } else if (item.contains(StyleType.SEPIA.toString())) {
+                styleDesign1 = StyleDesign.newInstance(StyleType.SEPIA);
 
-                } else if (item.contains(StyleType.BLACK.toString())) {
-                    styleDesign = StyleDesign.newInstance(StyleType.BLACK);
+            } else if (item.contains(StyleType.BLACK.toString())) {
+                styleDesign1 = StyleDesign.newInstance(StyleType.BLACK);
 
-                } else if (item.contains(StyleType.WHITE.toString())) {
-                    styleDesign = StyleDesign.newInstance(StyleType.WHITE);
+            } else if (item.contains(StyleType.WHITE.toString())) {
+                styleDesign1 = StyleDesign.newInstance(StyleType.WHITE);
 
-                } else if (item.contains(StyleType.LIGHT.toString())) {
-                    styleDesign = StyleDesign.newInstance(StyleType.LIGHT);
+            } else if (item.contains(StyleType.LIGHT.toString())) {
+                styleDesign1 = StyleDesign.newInstance(StyleType.LIGHT);
 
-                } else {
-                    styleDesign = StyleDesign.newInstance(StyleType.DARK);
-
-                }
-
-                selectedColor = styleDesign.backgroundColor;
-                selectedFontColor = styleDesign.fontColor;
-
-                anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
-                labelExample.setTextFill(Paint.valueOf(selectedFontColor));
+            } else {
+                styleDesign1 = StyleDesign.newInstance(StyleType.DARK);
 
             }
+
+            selectedColor = styleDesign1.backgroundColor;
+            selectedFontColor = styleDesign1.fontColor;
+
+            anchorPaneExample.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor), CornerRadii.EMPTY, Insets.EMPTY)));
+            labelExample.setTextFill(Paint.valueOf(selectedFontColor));
+
         });
 
         List<String> families = Font.getFamilies();
@@ -192,18 +176,56 @@ public class AddNewParticipant {
         listView.setCellFactory(param -> new WordCell());
     }
 
-    public void setScene(Scene scene) {
-        this.scene = scene;
+    public void setWordList(List<WordList> originalWordLists) {
+
+
+        for (WordList wordList : originalWordLists) {
+            hashMap.put(wordList.key, wordList);
+            if (wordList.category.equals(WordList.CATEGORY_POSITIVE)) {
+                positiveWordList.add(wordList.key);
+            } else if (wordList.category.equals(WordList.CATEGORY_NEGATIVE)) {
+                negativeWordList.add(wordList.key);
+            }
+        }
+
+        setListView(positiveWordList); //default
     }
 
-    public void handleSaveAndStart(ActionEvent actionEvent) {
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+        setWordList(mainApp.getWordLists());
+    }
+
+    /**
+     * Validates the user input in the text fields.
+     */
+    private void isInputValid() {
+        String errorMessage = "";
+
+        if (etParticipantNumber.getText() == null || etParticipantNumber.getText().length() == 0) {
+            errorMessage += "No valid participant number!\n";
+        }
+        if (etYearsEduc.getText() == null || etYearsEduc.getText().length() == 0) {
+            errorMessage += "No valid years of education!\n";
+        }
+
+        if (errorMessage.length() == 0) {
+            btnSave.setDisable(false);
+        } else {
+            btnSave.setDisable(true);
+        }
+    }
+
+
+    @FXML
+    private void handleSaveAndStart(ActionEvent actionEvent) {
 
         RadioButton selectedSexRadioButton = (RadioButton) toggleGroupSex.getSelectedToggle();
         RadioButton selectedGroupRadioButton = (RadioButton) toggleGroupNumber.getSelectedToggle();
         String selectedFontType = (String) comboBoxFontType.getSelectionModel().getSelectedItem();
         int selectedFontSize = (int) spinnerFontSize.getValue();
 
-//        if (isInputValid()) {
         List<WordList> shuffleWordList = new ArrayList<>();
 
         if (selectedGroupRadioButton.getText().equals(WordList.CATEGORY_POSITIVE)) {
@@ -228,74 +250,17 @@ public class AddNewParticipant {
 
 
         //go to test
-        StyleDesign seletectedStyleDesign = StyleDesign.getStyleInstance((String) comboBoxStyle.getValue());
-        seletectedStyleDesign.fontSize = selectedFontSize;
-        seletectedStyleDesign.fontName = selectedFontType;
-        mainApp.showStartExperiment(seletectedStyleDesign);
+        StyleDesign selectedStyleDesign = StyleDesign.getStyleInstance((String) comboBoxStyle.getValue());
+        selectedStyleDesign.fontSize = selectedFontSize;
+        selectedStyleDesign.fontName = selectedFontType;
+        mainApp.showStartExperiment(selectedStyleDesign);
 //        }
     }
 
 
-    public void setWordList(List<WordList> originalWordLists) {
-        this.originalWordLists = originalWordLists;
-
-
-        for (WordList wordList : originalWordLists) {
-            hashMap.put(wordList.key, wordList);
-            if (wordList.category.equals(WordList.CATEGORY_POSITIVE)) {
-                positiveWordList.add(wordList.key);
-            } else if (wordList.category.equals(WordList.CATEGORY_NEGATIVE)) {
-                negativeWordList.add(wordList.key);
-            }
-        }
-
-        setListView(positiveWordList); //default
-    }
-
-//    public void handleCancel(ActionEvent actionEvent) {
-//        mainApp.backToPreviousScene();
-//    }
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-
-
-        setWordList(mainApp.getWordLists());
-        setScene(mainApp.getPrimaryStage().getScene());
-    }
-
-    /**
-     * Validates the user input in the text fields.
-     */
-    private void isInputValid() {
-        String errorMessage = "";
-
-        if (etParticipantNumber.getText() == null || etParticipantNumber.getText().length() == 0) {
-            errorMessage += "No valid participant number!\n";
-        }
-        if (etYearsEduc.getText() == null || etYearsEduc.getText().length() == 0) {
-            errorMessage += "No valid years of education!\n";
-        }
-
-        if (errorMessage.length() == 0) {
-            btnSave.setDisable(false);
-//            return true;
-        } else {
-            btnSave.setDisable(true);
-//            // Show the error message.
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.initOwner(mainApp.getPrimaryStage());
-//            alert.setTitle("Invalid Fields");
-//            alert.setHeaderText("Please correct invalid fields");
-//            alert.setContentText(errorMessage);
-//
-//            alert.showAndWait();
-
-//            return false;
-        }
-    }
-
     private class WordCell extends ListCell<String> {
+
+        static final String PAPER_X_JAVA_ICON_48_PX_PNG = "paper-x-java-icon-48px.png";
 
         WordCell() {
             ListCell thisCell = this;
@@ -313,7 +278,7 @@ public class AddNewParticipant {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(getItem());
 
-                dragboard.setDragView(new Image("paper-x-java-icon-48px.png"));
+                dragboard.setDragView(new Image(PAPER_X_JAVA_ICON_48_PX_PNG));
                 dragboard.setContent(content);
 
 
@@ -368,10 +333,10 @@ public class AddNewParticipant {
                     items.set(draggedIdx, getItem());
                     items.set(thisIdx, db.getString());
 
-                    List<String> itemscopy = new ArrayList<>(getListView().getItems());
-                    getListView().getItems().setAll(itemscopy);
+                    List<String> itemsCopy = new ArrayList<>(getListView().getItems());
+                    getListView().getItems().setAll(itemsCopy);
 
-                    System.out.println(itemscopy);
+                    System.out.println(itemsCopy);
 
                     success = true;
                 }

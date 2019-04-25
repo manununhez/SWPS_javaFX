@@ -5,7 +5,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneTest" prefHeight="800.0" prefWidth="800.0"
             xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="pl.swps.view.Experiment">
     <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="392.0"
-           prefHeight="800.0" prefWidth="800.0" text="Cuidar" textAlignment="CENTER" wrapText="true"
+           prefHeight="800.0" prefWidth="800.0" textAlignment="CENTER" wrapText="true"
            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
            AnchorPane.topAnchor="0.0"/>
 </AnchorPane>

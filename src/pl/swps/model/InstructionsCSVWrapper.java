@@ -4,8 +4,6 @@ import java.util.List;
 
 public class InstructionsCSVWrapper {
 
-    private static final int LIST_ID_IDX = 0;
-    private static final int CATEGORY_IDX = 1;
     private InstructionMessages instructionMessages;
     private List stringWords;
 

@@ -111,12 +111,12 @@
                         <Insets left="10.0"/>
                     </GridPane.margin>
                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                        <RadioButton fx:id="rbMale" mnemonicParsing="false" selected="true" text="Male">
+                        <RadioButton mnemonicParsing="false" selected="true" text="Male">
                             <toggleGroup>
                                 <ToggleGroup fx:id="toggleGroupSex"/>
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="Female"
+                        <RadioButton mnemonicParsing="false" text="Female"
                                      toggleGroup="$toggleGroupSex">
                             <HBox.margin>
                                 <Insets left="20.0"/>
@@ -129,12 +129,12 @@
                         <Insets left="10.0"/>
                     </GridPane.margin>
                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                        <RadioButton fx:id="rbPositive" mnemonicParsing="false" selected="true" text="Positive">
+                        <RadioButton mnemonicParsing="false" selected="true" text="Positive">
                             <toggleGroup>
                                 <ToggleGroup fx:id="toggleGroupNumber"/>
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rbNegative" mnemonicParsing="false" text="Negative"
+                        <RadioButton mnemonicParsing="false" text="Negative"
                                      toggleGroup="$toggleGroupNumber">
                             <HBox.margin>
                                 <Insets left="20.0"/>

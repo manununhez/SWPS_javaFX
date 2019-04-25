@@ -16,29 +16,22 @@ import java.util.List;
 
 public class Results {
     @FXML
-    public Label sexLabel;
+    private Label sexLabel;
     @FXML
-    public Label educLabel;
+    private Label educLabel;
     @FXML
-    public Label categoryLabel;
+    private Label categoryLabel;
     @FXML
-    public Label listOrderLabel;
+    private Label listOrderLabel;
     @FXML
-    public TableColumn<Participant, String> dateExperimentColumn;
+    private TableColumn<Participant, String> dateExperimentColumn;
     @FXML
-    public TableColumn<Participant, String> participantNumberColumn;
+    private TableColumn<Participant, String> participantNumberColumn;
     @FXML
-    public TableView<Participant> resultsTable;
+    private TableView<Participant> resultsTable;
 
     private MainApp mainApp;
 
-
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    public Results() {
-    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -55,8 +48,6 @@ public class Results {
 
         //Listen for selection changes and show the person details whe changed.
         resultsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showParticipants(newValue));
-
-//        deleteBtn.setDisable(true);
 
     }
 
@@ -90,7 +81,8 @@ public class Results {
         }
     }
 
-    public void handleExportResults(ActionEvent actionEvent) {
+    @FXML
+    private void handleExportResults(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(

@@ -18,20 +18,20 @@ import java.util.Iterator;
 
 public class Experiment {
 
-    private WordList wordList;
     @FXML
-    public Label labelTest;
-    private Timeline clock;
+    private Label labelTest;
     @FXML
-    public AnchorPane anchorPaneTest;
+    private AnchorPane anchorPaneTest;
+
     private int SETTINGS_EXPOSITION_TIME = 2; //seconds
+    private WordList wordList;
+    private Timeline clock;
     private StartExperiment startExperiment;
 
 
     void setStartExperiment(StartExperiment startExperiment) {
         this.startExperiment = startExperiment;
     }
-
 
     void setValues(WordList wordList) {
         this.wordList = new WordList(wordList.category, wordList.key, wordList.values);
@@ -66,13 +66,12 @@ public class Experiment {
         clock.play();
 
         clock.setOnFinished(actionEvent -> {
-            System.out.println("Finish Loop\nClick spacebar");
+            System.out.println("Finish Loop\nClick spaceBar");
 
             startExperiment.keyBoardEvent();
         });
 
     }
-
 
     boolean isTimeLineIsOver() {
         return clock.getStatus().equals(Animation.Status.STOPPED);

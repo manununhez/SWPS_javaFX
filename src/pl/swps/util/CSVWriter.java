@@ -139,11 +139,8 @@ public class CSVWriter {
 
             sb.append(c);
 
-            switch (c) {
-
-                case DEFAULT_QUOTE_CHARACTER:
-                    sb.append(DEFAULT_QUOTE_CHARACTER);
-                    break;
+            if (c == DEFAULT_QUOTE_CHARACTER) {
+                sb.append(DEFAULT_QUOTE_CHARACTER);
             }
         }
 

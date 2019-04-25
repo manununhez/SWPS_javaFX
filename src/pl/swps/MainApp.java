@@ -55,9 +55,6 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(PRIMARY_STAGE_TITLE);
 
-        // Set the application icon.
-//        this.primaryStage.getIcons().add(new Image("address_book_32.png"));
-
         initRootLayout();
 
         showHome();
@@ -142,9 +139,7 @@ public class MainApp extends Application {
 
             //Give the controller access to the main app.
             AddNewParticipant controller = loader.getController();
-//            controller.setScene(primaryStage.getScene());
             controller.setMainApp(this);
-//            controller.setWordList(wordLists);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,14 +163,11 @@ public class MainApp extends Application {
 
             //Give the controller access to the main app.
             Results controller = loader.getController();
-//            controller.setScene(primaryStage.getScene());
             controller.setMainApp(this);
-//            controller.setWordList(wordLists);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void showInstructions() {
         try {
@@ -192,10 +184,8 @@ public class MainApp extends Application {
 
             //Give the controller access to the main app.
             Instructions controller = loader.getController();
-//            controller.setScene(primaryStage.getScene());
             controller.setMainApp(this);
             controller.setInstructions(instructionMessages);
-//            controller.setWordList(wordLists);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -244,18 +234,18 @@ public class MainApp extends Application {
      */
     public void showStartExperiment(StyleDesign style) {
         try {
-//            // Load the fxml file and create a new stage for the popup dialog.
+            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(VIEW_START_EXPERIMENT_FXML));
             BorderPane page = loader.load();
-//
-//            // Create the dialog Stage.
+
+            // Create the dialog Stage.
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
             secondaryStage.initOwner(primaryStage);
             secondaryStage.setMaximized(true);
-//
+
             //new scene
             Scene scene = new Scene(page);
             secondaryStage.setScene(scene);
@@ -284,7 +274,7 @@ public class MainApp extends Application {
      * The preference is read from the OS specific registry. If no such
      * preference can be found, null is returned.
      *
-     * @return
+     * @return File
      */
     public File getPersonFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);

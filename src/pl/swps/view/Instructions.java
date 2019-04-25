@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import pl.swps.MainApp;
@@ -21,13 +20,18 @@ import java.nio.charset.StandardCharsets;
 public class Instructions {
     private static final String CSV_EXTENSION = ".csv";
 
-    public TextArea taTaskInstructions;
-    public TextArea taTaskButtons;
-    public TextArea taWriteResults;
-    public TextArea taTaskButtonsNext;
-    public TextArea taFinalMessage;
-    public Label labelMessage;
-    public Button btnSave;
+    @FXML
+    private TextArea taTaskInstructions;
+    @FXML
+    private TextArea taTaskButtons;
+    @FXML
+    private TextArea taWriteResults;
+    @FXML
+    private TextArea taTaskButtonsNext;
+    @FXML
+    private TextArea taFinalMessage;
+    @FXML
+    private Button btnSave;
 
     private InstructionMessages instructionMessages;
     private MainApp mainApp;
@@ -84,12 +88,8 @@ public class Instructions {
         setTextMessages(instructionMessages);
     }
 
-    public void handleSaveChanges(ActionEvent actionEvent) {
-        saveChanges();
-
-    }
-
-    private void saveChanges() {
+    @FXML
+    private void handleSaveChanges(ActionEvent actionEvent) {
         instructionMessages.messageS1_taskInstructions = taTaskInstructions.getText();
         instructionMessages.messageS2_taskProcedureButtons = taTaskButtons.getText();
         instructionMessages.messageS3_writeResults = taWriteResults.getText();
@@ -97,9 +97,11 @@ public class Instructions {
         instructionMessages.messageS5_thanks = taFinalMessage.getText();
 
         btnSave.setDisable(true); //success
+
     }
 
-    public void handleUploadInstructions(ActionEvent actionEvent) {
+    @FXML
+    private void handleUploadInstructions(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter

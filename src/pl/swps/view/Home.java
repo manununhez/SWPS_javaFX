@@ -9,13 +9,13 @@ import pl.swps.model.WordList;
 
 public class Home {
     @FXML
-    public TableView<WordList> wordsTable;
+    private TableView<WordList> wordsTable;
     @FXML
-    public TableColumn<WordList, String> listIdColumn;
+    private TableColumn<WordList, String> listIdColumn;
     @FXML
-    public TableColumn<WordList, String> categoryColumn;
+    private TableColumn<WordList, String> categoryColumn;
     @FXML
-    public ListView listViewWords;
+    private ListView listViewWords;
 
     private MainApp mainApp;
 
@@ -53,8 +53,6 @@ public class Home {
     }
 
     private void showWordDetails(WordList wordList) {
-//        deleteBtn.setDisable(false);
-
         if (wordList != null) {
             listViewWords.getItems().clear();
             listViewWords.getItems().addAll(wordList.values);

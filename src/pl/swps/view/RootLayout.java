@@ -33,27 +33,31 @@ public class RootLayout {
         imageViewLogo.setImage(image);
     }
 
-
-    public void handleNew(ActionEvent actionEvent) {
+    @FXML
+    private void handleNew(ActionEvent actionEvent) {
         mainApp.showNewExperiment();
     }
 
     /**
      * Shows the experiment overview inside the root layout.
      */
-    public void handleHome(ActionEvent actionEvent) {
+    @FXML
+    private void handleHome(ActionEvent actionEvent) {
         mainApp.showHome();
     }
 
-    public void handleResults(ActionEvent actionEvent) {
+    @FXML
+    private void handleResults(ActionEvent actionEvent) {
         mainApp.showResults();
     }
 
-    public void handleInstructions(ActionEvent actionEvent) {
+    @FXML
+    private void handleInstructions(ActionEvent actionEvent) {
         mainApp.showInstructions();
     }
 
-    public void handleUpload(ActionEvent actionEvent) {
+    @FXML
+    private void handleUpload(ActionEvent actionEvent) {
         mainApp.showHome();
 
         FileChooser fileChooser = new FileChooser();
@@ -82,7 +86,7 @@ public class RootLayout {
     @FXML
     private void handleAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("SWPS Univeristy App");
+        alert.setTitle("SWPS University App");
         alert.setHeaderText("About");
         alert.setContentText("Developed by: Manuel Nunez\nWebsite: http://manuelnunhez.com\nEmail:manuel.nunhez90@gmail.com");
 

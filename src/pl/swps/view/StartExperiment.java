@@ -25,7 +25,6 @@ import java.util.HashMap;
 public class StartExperiment implements EventHandler<KeyEvent> {
     private static final String VIEW_EXPERIMENT_FXML = "Experiment.fxml";
 
-    //    private static final String KINDLE_SEPIA_FONT_NAME = "Georgia"; //Palatino
     private Stage experimentStage;
     private Scene scene;
     private ScreenController screenController;
@@ -101,12 +100,11 @@ public class StartExperiment implements EventHandler<KeyEvent> {
             // Load participant overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(StartExperiment.class.getResource(VIEW_EXPERIMENT_FXML));
-//            GridPane pane = loader.load();
             AnchorPane pane = loader.load();
 
             pane.setId(s.key);
 
-            //Give the controller acces to the main app.
+            //Give the controller access to the main app.
             Experiment controller = loader.getController();
             controller.setValues(s);
             controller.setStartExperiment(this);
@@ -155,68 +153,6 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         return setAnchorPane(id, styleDesign, message);
     }
 
-
-//    private AnchorPane wizard_2_first_space_bar() {
-//        String text = "Naciśnij spację, aby rozpocząć zadanie.";
-//
-//        return setAnchorPane("wizard_2_first_space_bar", styleDesign, text);
-//    }
-//
-//    private AnchorPane wizard_3_after_list() {
-//        String text = "Proszę teraz wypisać na kartce wszystkie zapamiętane słowa.\n" +
-//                "Kolejność słów nie ma znaczenia.\n" +
-//                "Po wypisaniu słów, proszę nacisnąć spację.";
-//        return setAnchorPane("wizard_3_after_list", styleDesign, text);
-//    }
-//
-//
-//    private AnchorPane wizard_4_next_space_bar() {
-//        String text = "Naciśnij spację, aby rozpocząć kolejne zadanie.";
-//        return setAnchorPane("wizard_4_next_space_bar", styleDesign, text);
-//    }
-//
-//    private AnchorPane wizard_5_final() {
-//        String text = " Dziękujemy, to już koniec zadania komputerowego.";
-//        return setAnchorPane("wizard_5_final", styleDesign, text);
-//    }
-
-
-//    private AnchorPane experimentScreen(WordList s) {
-//        VBox vBox = new VBox();
-//
-//        vBox.getChildren().add(new Separator());
-//
-//        Label labelTest = new Label();
-//        labelTest.setAlignment(Pos.CENTER);
-//        labelTest.setContentDisplay(ContentDisplay.CENTER);
-//        labelTest.setTextAlignment(TextAlignment.CENTER);
-//        labelTest.setWrapText(true);
-//
-//        labelTest.setFont(new Font(35.0));
-//        vBox.getChildren().add(labelTest);
-//
-//
-//        vBox.getChildren().add(new Separator());
-//
-////=============
-//        AnchorPane.setTopAnchor(vBox, 0.0);
-//        AnchorPane.setBottomAnchor(vBox, 0.0);
-//        AnchorPane.setLeftAnchor(vBox, 0.0);
-//        AnchorPane.setRightAnchor(vBox, 0.0);
-//
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.getChildren().add(vBox);
-//        anchorPane.setId(s.key);
-//
-////        startLoop(s);
-//
-//        experimentHashMap2.put(anchorPane.getId(), s);
-//
-//        return new AnchorPane();
-//    }
-//
-
-
     @Override
     public void handle(KeyEvent event) {
         if (event.getCode().isWhitespaceKey()) {
@@ -264,7 +200,6 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         Experiment controller = experimentHashMap.get(pane.getId());
         return controller.isTimeLineIsOver();
     }
-
 
     public void setStyle(StyleDesign style) {
         this.styleDesign = style;

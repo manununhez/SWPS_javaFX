@@ -31,14 +31,4 @@ public class InstructionMessages {
         this.messageS5_thanks = messageS5_thanks;
     }
 
-
-    //    Screen 1: InstructionMessages about the task
-//    Screen 2: How to proceed with the task (action buttons)
-//<Loop>
-//    Screen 3: Loop of words ...
-//    Screen 4: InstructionMessages: Write the results in a paper
-//    Screen 5: How to proceed with the next task (action buttons)
-//</Loop>
-//    Screen 6: Final InstructionMessages: Write the results in a paper
-//    Screen 7: Thank you note
 }
