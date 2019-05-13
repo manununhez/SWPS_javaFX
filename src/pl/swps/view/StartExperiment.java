@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -157,7 +158,13 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         if (event.getCode().isWhitespaceKey()) {
             keyBoardEvent();
+        }
 
+        if (event.getCode() == KeyCode.ESCAPE) {
+            if (!screenController.isNotEmpty()) { //If it is Empty
+                System.out.println("Key Pressed: " + event.getCode());
+                ((Stage) this.scene.getWindow()).close();
+            }
         }
     }
 
@@ -183,7 +190,6 @@ public class StartExperiment implements EventHandler<KeyEvent> {
             //After the change, we verified if the NEW screen is test, to initiate the loop of words
             AnchorPane newPane = (AnchorPane) screenController.getPane();
             if (isTestScreen(newPane)) startLoopInTestScreen(newPane);
-
         }
     }
 

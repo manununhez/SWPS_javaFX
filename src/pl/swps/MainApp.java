@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import pl.swps.model.*;
 import pl.swps.util.CSVReader;
 import pl.swps.util.CSVWriter;
@@ -34,7 +35,7 @@ public class MainApp extends Application {
     private static final String VIEW_RESULTS_FXML = "view/Results.fxml";
     private static final String VIEW_INSTRUCTIONS_FXML = "view/Instructions.fxml";
 
-    private Stage primaryStage;
+    private Stage mPrimaryStage;
     private BorderPane rootLayout;
     private ScreenController screenController;
 
@@ -44,6 +45,9 @@ public class MainApp extends Application {
     private ObservableList<WordList> wordLists = FXCollections.observableArrayList();
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
 
+    //define your offsets here
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,8 +56,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle(PRIMARY_STAGE_TITLE);
+        mPrimaryStage = primaryStage;
+        mPrimaryStage.setTitle(PRIMARY_STAGE_TITLE);
+
+        //you can use underdecorated or transparent.
+        mPrimaryStage.initStyle(StageStyle.TRANSPARENT);
 
         initRootLayout();
 
@@ -70,10 +77,22 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource(VIEW_ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
 
+            //grab your root here
+            rootLayout.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+
+            //move around here
+            rootLayout.setOnMouseDragged(event -> {
+                mPrimaryStage.setX(event.getScreenX() - xOffset);
+                mPrimaryStage.setY(event.getScreenY() - yOffset);
+            });
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            mPrimaryStage.setScene(scene);
+            mPrimaryStage.show();
 
             //Give the controller access to the main app.
             RootLayout controller = loader.getController();
@@ -218,10 +237,10 @@ public class MainApp extends Application {
     /**
      * Returns the main stage.
      *
-     * @return primaryStage
+     * @return mPrimaryStage
      */
     public Stage getPrimaryStage() {
-        return primaryStage;
+        return mPrimaryStage;
     }
 
 
@@ -243,7 +262,7 @@ public class MainApp extends Application {
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
             secondaryStage.initModality(Modality.WINDOW_MODAL);
-            secondaryStage.initOwner(primaryStage);
+            secondaryStage.initOwner(mPrimaryStage);
             secondaryStage.setMaximized(true);
 
             //new scene
@@ -298,12 +317,12 @@ public class MainApp extends Application {
             prefs.put(FILE_PATH, file.getPath());
 
             // Update the stage title.
-            primaryStage.setTitle(PRIMARY_STAGE_TITLE + " - " + file.getName());
+            mPrimaryStage.setTitle(PRIMARY_STAGE_TITLE + " - " + file.getName());
         } else {
             prefs.remove(FILE_PATH);
 
             // Update the stage title.
-            primaryStage.setTitle(PRIMARY_STAGE_TITLE);
+            mPrimaryStage.setTitle(PRIMARY_STAGE_TITLE);
         }
     }
 
