@@ -238,7 +238,6 @@ public class AddNewParticipant {
             }
         }
 
-
         Participant participant = new Participant(selectedSexRadioButton.getText(),
                 Integer.valueOf(etParticipantNumber.getText()),
                 Integer.valueOf(etYearsEduc.getText()),

@@ -88,6 +88,7 @@ public class Results {
         FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
                 "CSV files (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilterCSV);
+        fileChooser.setTitle("Save file...");
 
         // Show save file dialog
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());

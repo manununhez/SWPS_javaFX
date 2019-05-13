@@ -109,6 +109,7 @@ public class Instructions {
         FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
                 "CSV files (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilterCSV);
+        fileChooser.setTitle("Open file...");
 
 
         // Show open file dialog

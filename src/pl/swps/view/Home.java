@@ -66,7 +66,7 @@ public class Home {
         }
 
     }
-    
+
 
     public void handleUploadLists(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -76,7 +76,7 @@ public class Home {
         FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
                 "CSV files (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilterCSV);
-
+        fileChooser.setTitle("Open file...");
 
         // Show open file dialog
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
