@@ -34,6 +34,7 @@ public class MainApp extends Application {
     private static final String VIEW_HOME_FXML = "view/Home.fxml";
     private static final String VIEW_RESULTS_FXML = "view/Results.fxml";
     private static final String VIEW_INSTRUCTIONS_FXML = "view/Instructions.fxml";
+    public static final String RESULTS_FILE_CSV_NAME = "Results.csv";
 
     private Stage mPrimaryStage;
     private BorderPane rootLayout;
@@ -102,11 +103,11 @@ public class MainApp extends Application {
             screenController = new ScreenController(rootLayout);
 
             //Try to load last opened person file
-            File file = getPersonFilePath();
+            File file = getFilePath();
 
             if (file != null) {
                 if (file.getPath().endsWith(CSV_EXTENSION)) {
-                    loadPersonDataFromFileCSV(file);
+                    loadListsFromFileCSV(file);
                 }
             }
 
@@ -114,6 +115,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Shows the home inside the root layout.
@@ -295,7 +297,7 @@ public class MainApp extends Application {
      *
      * @return File
      */
-    public File getPersonFilePath() {
+    private File getFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         String filePath = prefs.get(FILE_PATH, null);
         if (filePath != null) {
@@ -311,7 +313,7 @@ public class MainApp extends Application {
      *
      * @param file the file or null to remove the path
      */
-    public void setPersonFilePath(File file) {
+    private void setFilePath(File file) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         if (file != null) {
             prefs.put(FILE_PATH, file.getPath());
@@ -327,7 +329,7 @@ public class MainApp extends Application {
     }
 
 
-    public void loadPersonDataFromFileCSV(File file) {
+    public void loadListsFromFileCSV(File file) {
         BufferedReader br;
         try {
             //Create the file reader
@@ -342,7 +344,10 @@ public class MainApp extends Application {
 
             csvReader.close();
             // Save the file path to the registry.
-            setPersonFilePath(file);
+            setFilePath(file);
+
+            //After loading lists FromFile
+            loadResultsFromCSV(wordLists);
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -354,12 +359,37 @@ public class MainApp extends Application {
         }
     }
 
+
+    private void loadResultsFromCSV(ObservableList<WordList> wordLists) {
+        File file = new File(RESULTS_FILE_CSV_NAME);
+        if (file.exists()) {
+            try {
+                //Create the file reader
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),
+                        StandardCharsets.UTF_8));
+
+                CSVReader csvReader = new CSVReader(br);
+
+                ResultsListCSVWrapper resultsListCSVWrapper = new ResultsListCSVWrapper(csvReader.readAll());
+                participants.clear();
+                participants.addAll(resultsListCSVWrapper.getListFromCSV(wordLists));
+
+                csvReader.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
     /**
      * Saves the current person data to the specified file.
      *
      * @param file filename
      */
-    public void savePersonDataToFileCSV(File file) {
+    public void saveResultsToFileCSV(File file) {
 
         CSVWriter csvWriter;
         try {
@@ -380,7 +410,7 @@ public class MainApp extends Application {
 
             csvWriter.close();
             // Save the file path to the registry.
-            setPersonFilePath(file);
+            setFilePath(file);
         } catch (IOException e) {
             e.printStackTrace();
 

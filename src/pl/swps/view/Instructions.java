@@ -124,7 +124,7 @@ public class Instructions {
     }
 
 
-    public void loadInstructionsFromFileCSV(File file) {
+    private void loadInstructionsFromFileCSV(File file) {
         BufferedReader br;
         try {
             //Create the file reader
@@ -140,7 +140,7 @@ public class Instructions {
 
             csvReader.close();
             // Save the file path to the registry.
-//            mainApp.setPersonFilePath(file);
+//            mainApp.setFilePath(file);
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(Alert.AlertType.ERROR);

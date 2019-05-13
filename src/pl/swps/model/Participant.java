@@ -10,7 +10,7 @@ import java.util.List;
 public class Participant {
     public List<WordList> wordLists;
     public String category;
-    public LocalDateTime timestamp;
+    private LocalDateTime timestamp;
     public String sex;
     public int participantNumber;
     public int yearsOfEducation;
@@ -29,8 +29,16 @@ public class Participant {
 
         this.participantNumberProperty = new SimpleStringProperty(String.valueOf(participantNumber));
 
-        this.timestampProperty = new SimpleStringProperty(DateUtil.format(timestamp));
+        this.timestampProperty = new SimpleStringProperty(getTimestampFormatted());
     }
+
+    public Participant(String sex, int participantNumber, int yearsOfEducation, List<WordList> wordLists, String timeStamp) {
+        this(sex, participantNumber, yearsOfEducation, wordLists);
+
+        this.timestamp = DateUtil.parseDateTime(timeStamp);
+        this.timestampProperty = new SimpleStringProperty(getTimestampFormatted());
+    }
+
 
     public StringProperty getParticipantNumberProperty() {
         return participantNumberProperty;

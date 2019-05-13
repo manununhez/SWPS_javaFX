@@ -95,7 +95,7 @@ public class Results {
 
         if (file != null) {
             if (file.getPath().endsWith(".csv")) {
-                mainApp.savePersonDataToFileCSV(file);
+                mainApp.saveResultsToFileCSV(file);
             }
 
         }

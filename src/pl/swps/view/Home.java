@@ -84,7 +84,7 @@ public class Home {
 
         if (file != null) {
             if (file.getPath().endsWith(CSV_EXTENSION)) {
-                mainApp.loadPersonDataFromFileCSV(file);
+                mainApp.loadListsFromFileCSV(file);
             }
         }
     }

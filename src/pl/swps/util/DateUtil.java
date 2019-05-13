@@ -66,6 +66,12 @@ public class DateUtil {
         }
     }
 
+
+    public static LocalDateTime parseDateTime(String dateString) {
+        return LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
+
+    }
+
     /**
      * Checks the String whether it is a valid date.
      *

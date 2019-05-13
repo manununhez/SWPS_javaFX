@@ -23,7 +23,10 @@ import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.StyleDesign.StyleType;
 import pl.swps.model.WordList;
+import pl.swps.util.CSVWriter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,7 +169,7 @@ public class AddNewParticipant {
 
     }
 
-    public void setListView(ObservableList<String> words) {
+    private void setListView(ObservableList<String> words) {
 
         wordListTmp = FXCollections.observableArrayList();
 
@@ -176,7 +179,7 @@ public class AddNewParticipant {
         listView.setCellFactory(param -> new WordCell());
     }
 
-    public void setWordList(List<WordList> originalWordLists) {
+    private void setWordList(List<WordList> originalWordLists) {
 
 
         for (WordList wordList : originalWordLists) {
@@ -253,7 +256,40 @@ public class AddNewParticipant {
         selectedStyleDesign.fontSize = selectedFontSize;
         selectedStyleDesign.fontName = selectedFontType;
         mainApp.showStartExperiment(selectedStyleDesign);
-//        }
+
+        saveResultsToCSV(mainApp.getParticipants());
+    }
+
+    private void saveResultsToCSV(List<Participant> participants) {
+        File file = new File(MainApp.RESULTS_FILE_CSV_NAME);
+        CSVWriter csvWriter;
+        try {
+            csvWriter = new CSVWriter(file, null);
+            csvWriter.writeHeader(new String[]{"Participant#", "Sex", "Years of education",
+                    "Date of the experiment", "Category", "Lists"});
+
+            for (Participant participant : participants) {
+                List<String> listOfKeys = new ArrayList<>();
+
+                for (WordList wordList : participant.wordLists)
+                    listOfKeys.add(wordList.key);
+
+                csvWriter.writeData(new String[]{String.valueOf(participant.participantNumber),
+                        participant.sex, String.valueOf(participant.yearsOfEducation), participant.getTimestampFormatted(),
+                        participant.category, String.join(",", listOfKeys)});
+            }
+
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+            alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
     }
 
 
