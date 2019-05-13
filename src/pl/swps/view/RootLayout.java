@@ -5,14 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import pl.swps.MainApp;
-
-import java.io.File;
 
 public class RootLayout {
     private static final String LOGO_APP = "logo.jpg";
-    private static final String CSV_EXTENSION = ".csv";
     public ImageView imageViewLogo;
     // Reference to the main application
     private MainApp mainApp;
@@ -56,29 +52,7 @@ public class RootLayout {
         mainApp.showInstructions();
     }
 
-    @FXML
-    private void handleUpload(ActionEvent actionEvent) {
-        mainApp.showHome();
 
-        FileChooser fileChooser = new FileChooser();
-
-        // Set extension filter
-
-        FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
-                "CSV files (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilterCSV);
-
-
-        // Show open file dialog
-        File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
-
-
-        if (file != null) {
-            if (file.getPath().endsWith(CSV_EXTENSION)) {
-                mainApp.loadPersonDataFromFileCSV(file);
-            }
-        }
-    }
 
     /**
      * Opens an about dialog.

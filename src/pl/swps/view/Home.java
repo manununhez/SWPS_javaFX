@@ -1,13 +1,20 @@
 package pl.swps.view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 import pl.swps.MainApp;
 import pl.swps.model.WordList;
 
+import java.io.File;
+
 public class Home {
+    private static final String CSV_EXTENSION = ".csv";
+    private MainApp mainApp;
+
     @FXML
     private TableView<WordList> wordsTable;
     @FXML
@@ -17,7 +24,7 @@ public class Home {
     @FXML
     private ListView listViewWords;
 
-    private MainApp mainApp;
+
 
 
     /**
@@ -58,5 +65,27 @@ public class Home {
             listViewWords.getItems().addAll(wordList.values);
         }
 
+    }
+    
+
+    public void handleUploadLists(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+
+        FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
+                "CSV files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilterCSV);
+
+
+        // Show open file dialog
+        File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+
+
+        if (file != null) {
+            if (file.getPath().endsWith(CSV_EXTENSION)) {
+                mainApp.loadPersonDataFromFileCSV(file);
+            }
+        }
     }
 }

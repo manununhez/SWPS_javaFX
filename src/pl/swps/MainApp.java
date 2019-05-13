@@ -331,7 +331,6 @@ public class MainApp extends Application {
         BufferedReader br;
         try {
             //Create the file reader
-//            br = new BufferedReader(new FileReader(file));
 
             br = new BufferedReader(new InputStreamReader(new FileInputStream(file),
                     StandardCharsets.UTF_8));

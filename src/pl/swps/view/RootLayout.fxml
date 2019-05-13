@@ -20,8 +20,6 @@
                     styleClass="button-flat" text="RESULTS"/>
             <Button mnemonicParsing="false" onAction="#handleInstructions" prefHeight="30.0" prefWidth="180.0"
                     styleClass="button-flat" text="INSTRUCTIONS"/>
-            <Button mnemonicParsing="false" onAction="#handleUpload" prefHeight="30.0" prefWidth="180.0"
-                    styleClass="button-flat" text="UPLOAD DATA (CSV)" wrapText="true"/>
             <Button layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleAbout" prefHeight="30.0"
                     prefWidth="180.0" styleClass="button-flat" text="ABOUT"/>
             <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="30.0" prefWidth="180.0"
