@@ -177,8 +177,6 @@ public class StartExperiment implements EventHandler<KeyEvent> {
             } else
                 activateNewScreen();
 
-        } else {
-            activateNewScreen();
         }
     }
 
