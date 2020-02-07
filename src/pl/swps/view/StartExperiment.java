@@ -20,8 +20,7 @@ import pl.swps.model.InstructionMessages;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
-import pl.swps.viewmodel.AddNewParticipantViewModel;
-import pl.swps.viewmodel.RootLayoutViewModel;
+import pl.swps.viewmodel.StartExperimentViewModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,12 +38,14 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     private StyleDesign styleDesign;
     private MainApp mainApp;
     private InstructionMessages instructionMessages;
+    private StartExperimentViewModel mViewModel;
 
     public void setMainApp(MainApp mainApp) {
 
         this.mainApp = mainApp;
+        mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(StartExperimentViewModel.class);
 
-        instructionMessages = mainApp.getApplicationCompositionRoot().getInstructionMessages();
+        instructionMessages = mViewModel.getInstructions();
     }
 
     public void initScreenFlow() {
@@ -81,11 +82,7 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     public void setStage(Stage experimentStage) {
         this.experimentStage = experimentStage;
     }
-
-//    public void setInstructionMessages(InstructionMessages instructionMessages) {
-//        this.instructionMessages = instructionMessages;
-//    }
-
+    
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setOnKeyPressed(this);

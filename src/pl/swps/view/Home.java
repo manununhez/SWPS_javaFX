@@ -5,14 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.FileChooser;
 import pl.swps.MainApp;
 import pl.swps.model.WordList;
-
-import java.io.File;
+import pl.swps.viewmodel.HomeViewModel;
 
 public class Home {
-    private static final String CSV_EXTENSION = ".csv";
     private MainApp mainApp;
 
     @FXML
@@ -23,8 +20,7 @@ public class Home {
     private TableColumn<WordList, String> categoryColumn;
     @FXML
     private ListView listViewWords;
-
-
+    private HomeViewModel mViewModel;
 
 
     /**
@@ -55,8 +51,10 @@ public class Home {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
+        mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(HomeViewModel.class);
+
         // Add observable list data to the table
-        wordsTable.setItems(mainApp.getWordLists());
+        wordsTable.setItems(mViewModel.getWordLists());
     }
 
     private void showWordDetails(WordList wordList) {
@@ -67,25 +65,8 @@ public class Home {
 
     }
 
-
     public void handleUploadLists(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
+        mViewModel.loadWordsList();
 
-        // Set extension filter
-
-        FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
-                "CSV files (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilterCSV);
-        fileChooser.setTitle("Open file...");
-
-        // Show open file dialog
-        File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
-
-
-        if (file != null) {
-            if (file.getPath().endsWith(CSV_EXTENSION)) {
-                mainApp.loadListsFromFileCSV(file);
-            }
-        }
     }
 }

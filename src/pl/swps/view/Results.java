@@ -5,12 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.FileChooser;
 import pl.swps.MainApp;
 import pl.swps.model.Participant;
 import pl.swps.model.WordList;
+import pl.swps.viewmodel.ResultsViewModel;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class Results {
     private TableView<Participant> resultsTable;
 
     private MainApp mainApp;
+    private ResultsViewModel mViewModel;
 
 
     /**
@@ -59,8 +59,10 @@ public class Results {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
+        mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(ResultsViewModel.class);
+
         // Add observable list data to the table
-        resultsTable.setItems(mainApp.getParticipants());
+        resultsTable.setItems(mViewModel.getParticipants());
     }
 
     private void showParticipants(Participant participant) {
@@ -83,21 +85,7 @@ public class Results {
 
     @FXML
     private void handleExportResults(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
+        mViewModel.saveResults(true);
 
-        FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter(
-                "CSV files (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilterCSV);
-        fileChooser.setTitle("Save file...");
-
-        // Show save file dialog
-        File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-
-        if (file != null) {
-            if (file.getPath().endsWith(".csv")) {
-                mainApp.saveResultsToFileCSV(file);
-            }
-
-        }
     }
 }

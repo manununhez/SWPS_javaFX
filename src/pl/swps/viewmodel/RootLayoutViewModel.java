@@ -1,30 +1,41 @@
 package pl.swps.viewmodel;
 
-import pl.swps.MainApp;
+import pl.swps.data.repository.AppRepository;
 import pl.swps.common.ScreensNavigator;
 import pl.swps.model.InstructionMessages;
 
 public class RootLayoutViewModel extends ViewModel {
-    private ScreensNavigator screensNavigator;
+    private ScreensNavigator mScreensNavigator;
+    private AppRepository mRepository;
 
-    public RootLayoutViewModel(ScreensNavigator screensNavigator) {
+    public RootLayoutViewModel(ScreensNavigator screensNavigator, AppRepository repository) {
 
-        this.screensNavigator = screensNavigator;
+        mScreensNavigator = screensNavigator;
+        mRepository = repository;
     }
 
     public void showHome() {
-        screensNavigator.goHome();
+        mScreensNavigator.goHome();
     }
 
     public void showNewExperiment() {
-        screensNavigator.goToNewExperiment();
+        mScreensNavigator.goToNewExperiment();
     }
 
     public void showResults() {
-        screensNavigator.goToResults();
+        mScreensNavigator.goToResults();
     }
 
     public void showInstructions(InstructionMessages instructionMessages) {
-        screensNavigator.goToInstructions(instructionMessages);
+        mScreensNavigator.goToInstructions(instructionMessages);
+    }
+
+    public void loadData() {
+        mRepository.loadWordsList();
+        mRepository.loadParticipants();
+    }
+
+    public InstructionMessages getInstructionMessages() {
+        return mRepository.getInstructions();
     }
 }

@@ -1,4 +1,6 @@
-package pl.swps.model;
+package pl.swps.data.local.model;
+
+import pl.swps.model.InstructionMessages;
 
 import java.util.List;
 

@@ -23,11 +23,8 @@ import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.StyleDesign.StyleType;
 import pl.swps.model.WordList;
-import pl.swps.util.CSVWriter;
 import pl.swps.viewmodel.AddNewParticipantViewModel;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -183,6 +180,7 @@ public class AddNewParticipant {
 
     private void setWordList(List<WordList> originalWordLists) {
 
+        if(originalWordLists.isEmpty())btnSave.setDisable(true);
 
         for (WordList wordList : originalWordLists) {
             hashMap.put(wordList.key, wordList);
@@ -201,8 +199,7 @@ public class AddNewParticipant {
 
         mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(AddNewParticipantViewModel.class);
 
-
-        setWordList(mainApp.getWordLists());
+        setWordList(mViewModel.getWordLists());
     }
 
     /**
@@ -260,45 +257,13 @@ public class AddNewParticipant {
         StyleDesign selectedStyleDesign = StyleDesign.getStyleInstance((String) comboBoxStyle.getValue());
         selectedStyleDesign.fontSize = selectedFontSize;
         selectedStyleDesign.fontName = selectedFontType;
+
         mViewModel.showStartExperiment(participant, selectedStyleDesign);
 
-        //TODO Add to viewModel
-        mainApp.setParticipant(participant);
-        //TODO Add to repository
-        saveResultsToCSV(mainApp.getParticipants());
-    }
+        mViewModel.addParticipant(participant);
 
-    //TODO Add to repository
-    private void saveResultsToCSV(List<Participant> participants) {
-        File file = new File(MainApp.RESULTS_FILE_CSV_NAME);
-        CSVWriter csvWriter;
-        try {
-            csvWriter = new CSVWriter(file, null);
-            csvWriter.writeHeader(new String[]{"Participant#", "Sex", "Years of education",
-                    "Date of the experiment", "Category", "Lists"});
+        mViewModel.saveResults(false);
 
-            for (Participant participant : participants) {
-                List<String> listOfKeys = new ArrayList<>();
-
-                for (WordList wordList : participant.wordLists)
-                    listOfKeys.add(wordList.key);
-
-                csvWriter.writeData(new String[]{String.valueOf(participant.participantNumber),
-                        participant.sex, String.valueOf(participant.yearsOfEducation), participant.getTimestampFormatted(),
-                        participant.category, String.join(",", listOfKeys)});
-            }
-
-            csvWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not save data");
-            alert.setContentText("Could not save data to file:\n" + file.getPath());
-
-            alert.showAndWait();
-        }
     }
 
 

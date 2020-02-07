@@ -27,6 +27,9 @@ public class RootLayout {
 
         // When the app starts, we go home
         mViewModel.showHome();
+
+        //Try to load last opened person file
+        mViewModel.loadData();
     }
 
 
@@ -38,7 +41,6 @@ public class RootLayout {
 
     @FXML
     private void handleNew(ActionEvent actionEvent) {
-        //mainApp.showNewExperiment();
         mViewModel.showNewExperiment();
     }
 
@@ -52,17 +54,13 @@ public class RootLayout {
 
     @FXML
     private void handleResults(ActionEvent actionEvent) {
-        //mainApp.showResults();
         mViewModel.showResults();
     }
 
     @FXML
     private void handleInstructions(ActionEvent actionEvent) {
-        //mainApp.showInstructions();
-        mViewModel.showInstructions(mainApp.getApplicationCompositionRoot().getInstructionMessages());
+        mViewModel.showInstructions(mViewModel.getInstructionMessages());
     }
-
-
 
     /**
      * Opens an about dialog.
