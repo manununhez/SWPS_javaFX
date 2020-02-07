@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -15,6 +14,7 @@ import pl.swps.model.*;
 import pl.swps.util.CSVReader;
 import pl.swps.util.CSVWriter;
 import pl.swps.view.*;
+import pl.swps.common.dependencyinjection.ApplicationCompositionRoot;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,24 +25,17 @@ import java.util.prefs.Preferences;
 public class MainApp extends Application {
     private static final String VIEW_ROOT_LAYOUT_FXML = "view/RootLayout.fxml";
     private static final String FILE_PATH = "filePath";
-    private static final String VIEW_START_EXPERIMENT_FXML = "view/StartExperiment.fxml";
-    private static final String VIEW_ADD_NEW_PARTICIPANT_FXML = "view/AddNewParticipant.fxml";
     private static final String CSV_EXTENSION = ".csv";
 
     private static final String PRIMARY_STAGE_TITLE = "SWSP University App";
-    private static final String SECONDARY_STAGE_TITLE = "Experiment started";
-    private static final String VIEW_HOME_FXML = "view/Home.fxml";
-    private static final String VIEW_RESULTS_FXML = "view/Results.fxml";
-    private static final String VIEW_INSTRUCTIONS_FXML = "view/Instructions.fxml";
     public static final String RESULTS_FILE_CSV_NAME = "Results.csv";
 
     private Stage mPrimaryStage;
     private BorderPane rootLayout;
-    private ScreenController screenController;
 
     private Participant participant;
-    private InstructionMessages instructionMessages = new InstructionMessages();
 
+    //TODO Add to repository
     private ObservableList<WordList> wordLists = FXCollections.observableArrayList();
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
 
@@ -54,6 +47,7 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    private ApplicationCompositionRoot mApplicationCompositionRoot;
 
     @Override
     public void start(Stage primaryStage) {
@@ -64,8 +58,6 @@ public class MainApp extends Application {
         mPrimaryStage.initStyle(StageStyle.TRANSPARENT);
 
         initRootLayout();
-
-        showHome();
     }
 
     /**
@@ -77,6 +69,8 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(VIEW_ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
+
+            mApplicationCompositionRoot = new ApplicationCompositionRoot(this, rootLayout);
 
             //grab your root here
             rootLayout.setOnMousePressed(event -> {
@@ -99,9 +93,6 @@ public class MainApp extends Application {
             RootLayout controller = loader.getController();
             controller.setMainApp(this);
 
-            //We add the main scene to the stack
-            screenController = new ScreenController(rootLayout);
-
             //Try to load last opened person file
             File file = getFilePath();
 
@@ -116,101 +107,10 @@ public class MainApp extends Application {
         }
     }
 
-
-    /**
-     * Shows the home inside the root layout.
-     */
-    public void showHome() {
-        try {
-            // Load home.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_HOME_FXML));
-            AnchorPane home = loader.load();
-
-            //we add this pane to the stack
-            screenController.addScreen(home);
-            // Set home into the center of root layout.
-            screenController.activate();
-
-            //Give the controller acces to the main app.
-            Home controller = loader.getController();
-            controller.setMainApp(this);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ApplicationCompositionRoot getApplicationCompositionRoot() {
+        return mApplicationCompositionRoot;
     }
 
-    /**
-     * Shows the new experiment inside the root layout.
-     */
-    public void showNewExperiment() {
-        try {
-            // Load new experiment.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_ADD_NEW_PARTICIPANT_FXML));
-            AnchorPane addNewParticipant = loader.load();
-
-            //we add this pane to the stack
-            screenController.addScreen(addNewParticipant);
-            // Set new experiment into the center of root layout.
-            screenController.activate();
-
-
-            //Give the controller access to the main app.
-            AddNewParticipant controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Shows the results inside the root layout.
-     */
-    public void showResults() {
-        try {
-            // Load results.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_RESULTS_FXML));
-            AnchorPane resultsPAne = loader.load();
-
-            //we add this pane to the stack
-            screenController.addScreen(resultsPAne);
-            // Set results into the center of root layout.
-            screenController.activate();
-
-
-            //Give the controller access to the main app.
-            Results controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showInstructions() {
-        try {
-            // Load results.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_INSTRUCTIONS_FXML));
-            AnchorPane instructionsPane = loader.load();
-
-            //we add this pane to the stack
-            screenController.addScreen(instructionsPane);
-            // Set results into the center of root layout.
-            screenController.activate();
-
-
-            //Give the controller access to the main app.
-            Instructions controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setInstructions(instructionMessages);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public ObservableList<WordList> getWordLists() {
         return wordLists;
@@ -220,7 +120,7 @@ public class MainApp extends Application {
         return participants;
     }
 
-
+    //TODO Add to repository
     public void setParticipant(Participant participant) {
         //In this point, participant contains all the information about the participant, including the selected list category,
         // and the randomized order of these lists
@@ -228,11 +128,6 @@ public class MainApp extends Application {
         //We add the participant to the list of participants, later will be saved to file
         //TODO this value will be saved to file
         participants.add(participant);
-    }
-
-    public void backToPreviousScene() {
-        screenController.removeScreen();
-        screenController.activate();
     }
 
 
@@ -246,50 +141,50 @@ public class MainApp extends Application {
     }
 
 
-    /**
-     * Opens a dialog to edit details for the specified participant. If the user
-     * clicks OK, the changes are saved into the provided participant object and true
-     * is returned.
-     *
-     * @param style Experiment screen design
-     */
-    public void showStartExperiment(StyleDesign style) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(VIEW_START_EXPERIMENT_FXML));
-            BorderPane page = loader.load();
+//    /**
+//     * Opens a dialog to edit details for the specified participant. If the user
+//     * clicks OK, the changes are saved into the provided participant object and true
+//     * is returned.
+//     *
+//     * @param style Experiment screen design
+//     */
+//    public void showStartExperiment(StyleDesign style) {
+//        try {
+//            // Load the fxml file and create a new stage for the popup dialog.
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(MainApp.class.getResource(VIEW_START_EXPERIMENT_FXML));
+//            BorderPane page = loader.load();
+//
+//            // Create the dialog Stage.
+//            Stage secondaryStage = new Stage();
+//            secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
+//            secondaryStage.initModality(Modality.WINDOW_MODAL);
+//            secondaryStage.initOwner(mPrimaryStage);
+//            secondaryStage.setMaximized(true);
+//
+//            //new scene
+//            Scene scene = new Scene(page);
+//            secondaryStage.setScene(scene);
+//
+//            // Set the participant into the controller.
+//            StartExperiment controller = loader.getController();
+//            controller.setStage(secondaryStage);
+//            controller.setScene(scene);
+//            controller.setPane(page);
+//            controller.setParticipant(participant);
+//            controller.setMainApp(this);
+//            controller.setStyle(style);
+//            controller.initScreenFlow();
+//
+//            // Show the dialog and wait until the user closes it
+//            secondaryStage.showAndWait();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-            // Create the dialog Stage.
-            Stage secondaryStage = new Stage();
-            secondaryStage.setTitle(SECONDARY_STAGE_TITLE);
-            secondaryStage.initModality(Modality.WINDOW_MODAL);
-            secondaryStage.initOwner(mPrimaryStage);
-            secondaryStage.setMaximized(true);
-
-            //new scene
-            Scene scene = new Scene(page);
-            secondaryStage.setScene(scene);
-
-            // Set the participant into the controller.
-            StartExperiment controller = loader.getController();
-            controller.setStage(secondaryStage);
-            controller.setScene(scene);
-            controller.setPane(page);
-            controller.setParticipant(participant);
-            controller.setInstructionMessages(instructionMessages);
-            controller.setStyle(style);
-            controller.initScreenFlow();
-
-            // Show the dialog and wait until the user closes it
-            secondaryStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+//TODO Add to repository
     /**
      * Returns the person file preference, i.e. the file that was last opened.
      * The preference is read from the OS specific registry. If no such
@@ -307,6 +202,7 @@ public class MainApp extends Application {
         }
     }
 
+    //TODO Add to repository
     /**
      * Sets the file path of the currently loaded file. The path is persisted in
      * the OS specific registry.
@@ -328,7 +224,7 @@ public class MainApp extends Application {
         }
     }
 
-
+    //TODO Add to repository
     public void loadListsFromFileCSV(File file) {
         BufferedReader br;
         try {
@@ -359,7 +255,7 @@ public class MainApp extends Application {
         }
     }
 
-
+    //TODO Add to repository
     private void loadResultsFromCSV(ObservableList<WordList> wordLists) {
         File file = new File(RESULTS_FILE_CSV_NAME);
         if (file.exists()) {
@@ -384,6 +280,7 @@ public class MainApp extends Application {
 
     }
 
+    //TODO Add to repository
     /**
      * Saves the current person data to the specified file.
      *

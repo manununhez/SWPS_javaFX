@@ -24,6 +24,7 @@ import pl.swps.model.StyleDesign;
 import pl.swps.model.StyleDesign.StyleType;
 import pl.swps.model.WordList;
 import pl.swps.util.CSVWriter;
+import pl.swps.viewmodel.AddNewParticipantViewModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class AddNewParticipant {
     private MainApp mainApp;
     private ObservableList<String> positiveWordList = FXCollections.observableArrayList();
     private ObservableList<String> negativeWordList = FXCollections.observableArrayList();
+    private AddNewParticipantViewModel mViewModel;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -197,6 +199,9 @@ public class AddNewParticipant {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
+        mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(AddNewParticipantViewModel.class);
+
+
         setWordList(mainApp.getWordLists());
     }
 
@@ -248,18 +253,22 @@ public class AddNewParticipant {
 
         System.out.println(participant);
 
-        mainApp.setParticipant(participant);
+
 
 
         //go to test
         StyleDesign selectedStyleDesign = StyleDesign.getStyleInstance((String) comboBoxStyle.getValue());
         selectedStyleDesign.fontSize = selectedFontSize;
         selectedStyleDesign.fontName = selectedFontType;
-        mainApp.showStartExperiment(selectedStyleDesign);
+        mViewModel.showStartExperiment(participant, selectedStyleDesign);
 
+        //TODO Add to viewModel
+        mainApp.setParticipant(participant);
+        //TODO Add to repository
         saveResultsToCSV(mainApp.getParticipants());
     }
 
+    //TODO Add to repository
     private void saveResultsToCSV(List<Participant> participants) {
         File file = new File(MainApp.RESULTS_FILE_CSV_NAME);
         CSVWriter csvWriter;

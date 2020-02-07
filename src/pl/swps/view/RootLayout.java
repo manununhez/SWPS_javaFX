@@ -6,12 +6,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pl.swps.MainApp;
+import pl.swps.viewmodel.RootLayoutViewModel;
 
 public class RootLayout {
     private static final String LOGO_APP = "logo.jpg";
     public ImageView imageViewLogo;
     // Reference to the main application
     private MainApp mainApp;
+    private RootLayoutViewModel mViewModel;
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -20,6 +22,11 @@ public class RootLayout {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+
+        mViewModel = mainApp.getApplicationCompositionRoot().getViewModelFactory().get(RootLayoutViewModel.class);
+
+        // When the app starts, we go home
+        mViewModel.showHome();
     }
 
 
@@ -31,7 +38,8 @@ public class RootLayout {
 
     @FXML
     private void handleNew(ActionEvent actionEvent) {
-        mainApp.showNewExperiment();
+        //mainApp.showNewExperiment();
+        mViewModel.showNewExperiment();
     }
 
     /**
@@ -39,17 +47,19 @@ public class RootLayout {
      */
     @FXML
     private void handleHome(ActionEvent actionEvent) {
-        mainApp.showHome();
+        mViewModel.showHome();
     }
 
     @FXML
     private void handleResults(ActionEvent actionEvent) {
-        mainApp.showResults();
+        //mainApp.showResults();
+        mViewModel.showResults();
     }
 
     @FXML
     private void handleInstructions(ActionEvent actionEvent) {
-        mainApp.showInstructions();
+        //mainApp.showInstructions();
+        mViewModel.showInstructions(mainApp.getApplicationCompositionRoot().getInstructionMessages());
     }
 
 

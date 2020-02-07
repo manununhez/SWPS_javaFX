@@ -15,10 +15,13 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import pl.swps.MainApp;
 import pl.swps.model.InstructionMessages;
 import pl.swps.model.Participant;
 import pl.swps.model.StyleDesign;
 import pl.swps.model.WordList;
+import pl.swps.viewmodel.AddNewParticipantViewModel;
+import pl.swps.viewmodel.RootLayoutViewModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,8 +37,15 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     private HashMap<String, Experiment> experimentHashMap = new HashMap<>();
     private Participant participant;
     private StyleDesign styleDesign;
+    private MainApp mainApp;
     private InstructionMessages instructionMessages;
 
+    public void setMainApp(MainApp mainApp) {
+
+        this.mainApp = mainApp;
+
+        instructionMessages = mainApp.getApplicationCompositionRoot().getInstructionMessages();
+    }
 
     public void initScreenFlow() {
         screenController = new ScreenController(rootLayout);
@@ -72,9 +82,9 @@ public class StartExperiment implements EventHandler<KeyEvent> {
         this.experimentStage = experimentStage;
     }
 
-    public void setInstructionMessages(InstructionMessages instructionMessages) {
-        this.instructionMessages = instructionMessages;
-    }
+//    public void setInstructionMessages(InstructionMessages instructionMessages) {
+//        this.instructionMessages = instructionMessages;
+//    }
 
     public void setScene(Scene scene) {
         this.scene = scene;
@@ -208,4 +218,5 @@ public class StartExperiment implements EventHandler<KeyEvent> {
     public void setStyle(StyleDesign style) {
         this.styleDesign = style;
     }
+
 }
