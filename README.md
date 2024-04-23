@@ -1,5 +1,5 @@
 # SWPS JavaFX desktop app
-A small JavaFX procedure for the department of Psychology of the SWPS University. 
+A small JavaFX procedure for the department of Psychology of the SWPS University.  Used to conduct pilot studies.
 
 ## Screenshots
 ![Add New Participant](img/add_new_participant_screen.png)
